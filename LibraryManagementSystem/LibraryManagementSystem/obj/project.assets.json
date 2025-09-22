@@ -8099,11 +8099,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\LibraryManagementSystem\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
+      "projectUniqueName": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
       "projectName": "LibraryManagementSystem",
-      "projectPath": "E:\\LibraryManagementSystem\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
+      "projectPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
       "packagesPath": "C:\\Users\\ranze\\.nuget\\packages\\",
-      "outputPath": "E:\\LibraryManagementSystem\\LibraryManagementSystem\\obj\\",
+      "outputPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -21,7 +21,7 @@
   },
   {
     "ContainingType": "LibraryManagementSystem.Controllers.ArchivedMembersController",
-    "Method": "GetArchivedMember",
+    "Method": "TryLang",
     "RelativePath": "api/ArchivedMembers/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -398,7 +398,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.Models.Loan, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.LoansDTO.LoansRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -417,14 +417,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loan",
-        "Type": "LibraryManagementSystem.Models.Loan",
+        "Name": "loanDto",
+        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Loan",
+        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -450,7 +450,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Loan",
+        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -474,8 +474,8 @@
         "IsRequired": true
       },
       {
-        "Name": "loan",
-        "Type": "LibraryManagementSystem.Models.Loan",
+        "Name": "loanDto",
+        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansPut",
         "IsRequired": true
       }
     ],

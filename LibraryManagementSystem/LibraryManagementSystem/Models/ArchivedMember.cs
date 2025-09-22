@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LibraryManagementSystem.Models;
+﻿namespace LibraryManagementSystem.Models;
 
 public partial class ArchivedMember
 {

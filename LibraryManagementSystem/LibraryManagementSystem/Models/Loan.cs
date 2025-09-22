@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LibraryManagementSystem.Models;
+﻿namespace LibraryManagementSystem.Models;
 
 public partial class Loan
 {
@@ -11,13 +8,13 @@ public partial class Loan
 
     public int MemberId { get; set; }
 
-    public DateOnly LoanDate { get; set; }
+    public DateOnly LoanDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     public DateOnly DueDate { get; set; }
 
     public DateOnly? ReturnDate { get; set; }
 
-    public int StatusId { get; set; }
+    public int StatusId { get; set; } = 1;
 
     public virtual Book Book { get; set; } = null!;
 

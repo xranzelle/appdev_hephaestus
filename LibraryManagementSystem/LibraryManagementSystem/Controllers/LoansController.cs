@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using LibraryManagementSystem.DTO.LoansDTO;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -14,22 +11,47 @@ namespace LibraryManagementSystem.Controllers
     public class LoansController : ControllerBase
     {
         private readonly LibraryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public LoansController(LibraryDbContext context)
+        public LoansController(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Loans
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Loan>>> GetLoans()
+        public async Task<ActionResult<IEnumerable<LoansRead>>> GetLoans()
         {
-            return await _context.Loans.ToListAsync();
+            //var loans = await _context.Loans.ToListAsync();
+
+            var loans = await _context.Loans.Include(l => l.Status).ToListAsync();
+
+            var loansDto = _mapper.Map<List<LoansRead>>(loans);
+
+            return Ok(loansDto);
         }
 
         // GET: api/Loans/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Loan>> GetLoan(int id)
+        public async Task<ActionResult<LoansRead>> GetLoan(int id)
+        {
+            var loan = await _context.Loans.Include(l => l.Status).FirstOrDefaultAsync(l => l.LoanId == id);
+
+            if (loan == null)
+            {
+                return NotFound();
+            }
+
+            var loans_dto = _mapper.Map<LoansRead>(loan);
+
+            return Ok(loans_dto);
+        }
+
+        // PUT: api/Loans/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutLoan(int id, LoansPut loanDto)
         {
             var loan = await _context.Loans.FindAsync(id);
 
@@ -38,20 +60,16 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            return loan;
-        }
+            _mapper.Map(loanDto, loan);
 
-        // PUT: api/Loans/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoan(int id, Loan loan)
-        {
-            if (id != loan.LoanId)
+            if (loan.StatusId == 2)
             {
-                return BadRequest();
+                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
             }
-
-            _context.Entry(loan).State = EntityState.Modified;
+            else
+            {
+                loan.ReturnDate = null;
+            }
 
             try
             {
@@ -68,19 +86,22 @@ namespace LibraryManagementSystem.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
         // POST: api/Loans
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Loan>> PostLoan(Loan loan)
+        public async Task<ActionResult<LoansRead>> PostLoan(LoansPost loanDto)
         {
-            _context.Loans.Add(loan);
+            var loans = _mapper.Map<Loan>(loanDto);
+
+            _context.Loans.Add(loans);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLoan", new { id = loan.LoanId }, loan);
+            var loans_dto = _mapper.Map<LoansRead>(loans);
+
+            return CreatedAtAction("GetLoan", new { id = loans.LoanId }, loans_dto);
         }
 
         // DELETE: api/Loans/5
