@@ -9,7 +9,6 @@ namespace LibraryManagementSystem.Profiles
         public ArchivedMembersProfile()
         {
             CreateMap<ArchivedMember, ArchivedMembersRead>();
-            CreateMap<ArchivedMembersRead, ArchivedMember>();
         }
     }
 }

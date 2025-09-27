@@ -11,7 +11,6 @@ namespace LibraryManagementSystem.Profiles
             CreateMap<Loan, LoansRead>();
             CreateMap<LoansPut, Loan>();
             CreateMap<LoansPost, Loan>();
-
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using LibraryManagementSystem.DTO.LoanStatusDTO;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -14,22 +11,27 @@ namespace LibraryManagementSystem.Controllers
     public class LoanStatusController : ControllerBase
     {
         private readonly LibraryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public LoanStatusController(LibraryDbContext context)
+        public LoanStatusController(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/LoanStatus
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoanStatus>>> GetLoanStatuses()
+        public async Task<ActionResult<IEnumerable<LoanStatusRead>>> GetLoanStatuses()
         {
-            return await _context.LoanStatuses.ToListAsync();
+            var loans = await _context.LoanStatuses.OrderBy(l => l.StatusId).ToListAsync();
+            var mappedLoans = _mapper.Map<List<LoanStatusRead>>(loans);
+
+            return Ok(mappedLoans);
         }
 
         // GET: api/LoanStatus/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoanStatus>> GetLoanStatus(int id)
+        public async Task<ActionResult<LoanStatusRead>> GetLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
 
@@ -38,45 +40,37 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            return loanStatus;
+            var mappedLoanStatus = _mapper.Map<LoanStatus>(loanStatus);
+            return Ok(mappedLoanStatus);
         }
 
         // PUT: api/LoanStatus/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoanStatus(int id, LoanStatus loanStatus)
+        public async Task<IActionResult> PutLoanStatus(int id, LoanStatusPut loanStatusDTO)
         {
-            if (id != loanStatus.StatusId)
+            var loanStats = await _context.LoanStatuses.FindAsync(id);
+
+            if (loanStats == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(loanStatus).State = EntityState.Modified;
+            _mapper.Map(loanStatusDTO, loanStats);
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoanStatusExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var mappedLoanStatus = _mapper.Map<LoanStatusRead>(loanStats);
 
-            return NoContent();
+            return Ok(mappedLoanStatus);
         }
 
         // POST: api/LoanStatus
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LoanStatus>> PostLoanStatus(LoanStatus loanStatus)
+        public async Task<ActionResult<LoanStatusRead>> PostLoanStatus(LoanStatusPost loanStatusDTO)
         {
+            var loanStatus = _mapper.Map<LoanStatus>(loanStatusDTO);
+
             _context.LoanStatuses.Add(loanStatus);
             await _context.SaveChangesAsync();
 
