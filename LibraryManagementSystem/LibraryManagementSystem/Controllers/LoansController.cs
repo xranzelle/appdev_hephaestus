@@ -27,7 +27,7 @@ namespace LibraryManagementSystem.Controllers
 
             var loans = await _context.Loans.Include(l => l.Status).ToListAsync();
 
-            var loansDto = _mapper.Map<List<LoansRead>>(loans);
+            var loansDto = _mapper.Map<List<LoansRead/*dto*/>>(loans);
 
             return Ok(loansDto);
         }
@@ -36,7 +36,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LoansRead>> GetLoan(int id)
         {
-            var loan = await _context.Loans.Include(l => l.Status).FirstOrDefaultAsync(l => l.LoanId == id);
+            var loan = await _context.Loans.FirstOrDefaultAsync(l => l.LoanId == id);
 
             if (loan == null)
             {

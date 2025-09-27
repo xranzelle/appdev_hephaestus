@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Models;
 using AutoMapper;
+using LibraryManagementSystem.DTO.AuthorsDTO;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -25,14 +21,33 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: api/Authors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
+        public async Task<ActionResult<IEnumerable<AuthorsRead>>> GetAuthors()
         {
-            return await _context.Authors.ToListAsync();
+            var author = await _context.Authors.OrderBy(a => a.AuthorId).ToListAsync();
+            var mappedAuthor = _mapper.Map<List<AuthorsRead>>(author);
+
+            return Ok(mappedAuthor);
         }
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Author>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorsRead>> GetAuthor(int id)
+        {
+            var author = await _context.Authors.FindAsync(id);
+            
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            var mappedAuthor = _mapper.Map<AuthorsRead>(author);
+            return Ok(mappedAuthor);
+        }
+
+        // PUT: api/Authors/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAuthor(int id, AuthorsPut authorDTO)
         {
             var author = await _context.Authors.FindAsync(id);
 
@@ -41,45 +56,20 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            return author;
-        }
+            var mappedAuthor = _mapper.Map(authorDTO, author);
 
-        // PUT: api/Authors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAuthor(int id, Author author)
-        {
-            if (id != author.AuthorId)
-            {
-                return BadRequest();
-            }
+            await _context.SaveChangesAsync();
 
-            _context.Entry(author).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(mappedAuthor);
         }
 
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Author>> PostAuthor(Author author)
+        public async Task<ActionResult<AuthorsRead>> PostAuthor(AuthorsPost authorDTO)
         {
+            var author = _mapper.Map<Author>(authorDTO);
+
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
@@ -100,11 +90,6 @@ namespace LibraryManagementSystem.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool AuthorExists(int id)
-        {
-            return _context.Authors.Any(e => e.AuthorId == id);
         }
     }
 }
