@@ -22,9 +22,9 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> GetGenres()
+        public async Task<ActionResult<IEnumerable<GenresDTO>>> GetGenres()
         {
-            var genresWithBooks = await _context.Genres
+            var genresWithTitles = await _context.Genres
                 .Include(g => g.Books)
                 .Select(g => new
                 {
@@ -32,15 +32,12 @@ namespace LibraryManagementSystem.Controllers
                     g.GenreName,
                     Books = g.Books.Select(b => new
                     {
-                        b.Title,
-                        b.Author,
-                        b.ISBN,
-                        b.GenreId
+                        b.Title
                     }).ToList()
                 })
                 .ToListAsync();
 
-            return genresWithBooks;
+            return genresWithTitles;
         }
 
         // GET: api/Genres/5
@@ -56,10 +53,7 @@ namespace LibraryManagementSystem.Controllers
                     g.GenreName,
                     Books = g.Books.Select(b => new
                     {
-                        b.Title,
-                        b.Author,
-                        b.ISBN,
-                        b.GenreId
+                        b.Title
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -99,19 +93,19 @@ namespace LibraryManagementSystem.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            
+            return Ok(new { genre.GenreName }); 
         }
 
         // POST: api/Genres
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Genre>> PostGenre(Genre genre)
+        public async Task<ActionResult<object>> PostGenre(Genre genre)
         {
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, genre);
+            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, new { genre.GenreName });
         }
 
         // DELETE: api/Genres/5
