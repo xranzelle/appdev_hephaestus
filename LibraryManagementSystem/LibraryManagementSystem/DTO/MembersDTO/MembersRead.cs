@@ -1,7 +1,9 @@
 namespace LibraryManagementSystem.DTO.MembersDTO
 {
-    public class MembersReadByID
+    public class MembersRead
     {
+        public int MemberId { get; set; }
+
         public string Name { get; set; } = null!;
 
         public string Email { get; set; } = null!;
@@ -9,7 +11,5 @@ namespace LibraryManagementSystem.DTO.MembersDTO
         public string? ContactNumber { get; set; }
 
         public string? Address { get; set; }
-
-        public DateOnly? MembershipDate { get; set; }
     }
 }
