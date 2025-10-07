@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using LibraryManagementSystem.DTO.GenresDTO;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -14,48 +11,33 @@ namespace LibraryManagementSystem.Controllers
     public class GenresController : ControllerBase
     {
         private readonly LibraryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public GenresController(LibraryDbContext context)
+        public GenresController(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GenresDTO>>> GetGenres()
+        public async Task<ActionResult<IEnumerable<GenresRead>>> GetGenres()
         {
-            var genresWithTitles = await _context.Genres
+            var genres = await _context.Genres
                 .Include(g => g.Books)
-                .Select(g => new
-                {
-                    g.GenreId,
-                    g.GenreName,
-                    Books = g.Books.Select(b => new
-                    {
-                        b.Title
-                    }).ToList()
-                })
                 .ToListAsync();
 
-            return genresWithTitles;
+            var genresDto = _mapper.Map<List<GenresRead>>(genres);
+            return Ok(genresDto);
         }
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<object>> GetGenre(int id)
+        public async Task<ActionResult<GenresReadByID>> GetGenre(int id)
         {
             var genre = await _context.Genres
                 .Include(g => g.Books)
                 .Where(g => g.GenreId == id)
-                .Select(g => new
-                {
-                    g.GenreId,
-                    g.GenreName,
-                    Books = g.Books.Select(b => new
-                    {
-                        b.Title
-                    }).ToList()
-                })
                 .FirstOrDefaultAsync();
 
             if (genre == null)
@@ -63,49 +45,38 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            return genre;
+            var genreDto = _mapper.Map<GenresReadByID>(genre);
+            return Ok(genreDto);
         }
 
-        // PUT: api/Genres/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGenre(int id, Genre genre)
+        public async Task<IActionResult> PutGenre(int id, GenresPut genreDto)
         {
-            if (id != genre.GenreId)
+            var genre = await _context.Genres.FindAsync(id);
+
+            if (genre == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(genre).State = EntityState.Modified;
+            _mapper.Map(genreDto, genre);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GenreExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            
-            return Ok(new { genre.GenreName }); 
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
         // POST: api/Genres
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<object>> PostGenre(Genre genre)
+        public async Task<ActionResult<GenresRead>> PostGenre(GenresPost genreDto)
         {
+            var genre = _mapper.Map<Genre>(genreDto);
+
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, new { genre.GenreName });
+            var genreReadDto = _mapper.Map<GenresRead>(genre);
+            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, genreReadDto);
         }
 
         // DELETE: api/Genres/5
@@ -122,11 +93,6 @@ namespace LibraryManagementSystem.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool GenreExists(int id)
-        {
-            return _context.Genres.Any(e => e.GenreId == id);
         }
     }
 }

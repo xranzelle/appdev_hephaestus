@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\profiles\\genresprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\profiles\\genresprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\genresdto\\genresread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\genresdto\\genresread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\genresdto\\genresreadbyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\genresdto\\genresreadbyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +35,64 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GenresProfile.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Profiles\\GenresProfile.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Profiles\\GenresProfile.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Profiles\\GenresProfile.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Profiles\\GenresProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:21:28.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GenresRead.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\GenresDTO\\GenresRead.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\GenresDTO\\GenresRead.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\GenresDTO\\GenresRead.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\DTO\\GenresDTO\\GenresRead.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:21:09.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GenresReadByID.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\GenresDTO\\GenresReadByID.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\GenresDTO\\GenresReadByID.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\GenresDTO\\GenresReadByID.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\DTO\\GenresDTO\\GenresReadByID.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:21:06.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GenresController.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:18:21.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "BooksController.cs",
               "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
               "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\BooksController.cs",
               "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
               "RelativeToolTip": "LibraryManagementSystem\\Controllers\\BooksController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwGsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-07T13:11:00.561Z",
               "EditorCaption": ""

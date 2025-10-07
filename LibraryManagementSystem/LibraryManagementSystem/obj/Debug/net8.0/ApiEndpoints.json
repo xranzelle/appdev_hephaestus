@@ -289,7 +289,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.GenresDTO.GenresRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -308,14 +308,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "genre",
-        "Type": "LibraryManagementSystem.Models.Genre",
+        "Name": "genreDto",
+        "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Genre",
+        "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -339,7 +339,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresReadByID",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "LibraryManagementSystem.Controllers.GenresController",
@@ -355,8 +365,8 @@
         "IsRequired": true
       },
       {
-        "Name": "genre",
-        "Type": "LibraryManagementSystem.Models.Genre",
+        "Name": "genreDto",
+        "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresPut",
         "IsRequired": true
       }
     ],

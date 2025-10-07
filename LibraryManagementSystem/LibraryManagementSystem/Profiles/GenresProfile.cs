@@ -9,6 +9,7 @@ namespace LibraryManagementSystem.Profiles
         public GenresProfile() 
         {
             CreateMap<Genre, GenresRead>();
+            CreateMap<Genre, GenresReadByID>();
             CreateMap<GenresPost, Genre>();
             CreateMap<GenresPut, Genre>();
         }

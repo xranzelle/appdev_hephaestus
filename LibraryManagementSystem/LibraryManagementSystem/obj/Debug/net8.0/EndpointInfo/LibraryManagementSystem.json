@@ -486,19 +486,25 @@
               "text/plain": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/GenresRead"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/GenresRead"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/GenresRead"
+                  }
                 }
               }
             }
@@ -513,17 +519,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPost"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPost"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPost"
               }
             }
           }
@@ -534,17 +540,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Genre"
+                  "$ref": "#/components/schemas/GenresRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Genre"
+                  "$ref": "#/components/schemas/GenresRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Genre"
+                  "$ref": "#/components/schemas/GenresRead"
                 }
               }
             }
@@ -570,7 +576,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenresReadByID"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenresReadByID"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenresReadByID"
+                }
+              }
+            }
           }
         }
       },
@@ -593,17 +616,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPut"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPut"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Genre"
+                "$ref": "#/components/schemas/GenresPut"
               }
             }
           }
@@ -1459,6 +1482,50 @@
             "items": {
               "$ref": "#/components/schemas/Book"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenresPost": {
+        "type": "object",
+        "properties": {
+          "genreName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenresPut": {
+        "type": "object",
+        "properties": {
+          "genreName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenresRead": {
+        "type": "object",
+        "properties": {
+          "genreId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "genreName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenresReadByID": {
+        "type": "object",
+        "properties": {
+          "genreName": {
+            "type": "string",
             "nullable": true
           }
         },

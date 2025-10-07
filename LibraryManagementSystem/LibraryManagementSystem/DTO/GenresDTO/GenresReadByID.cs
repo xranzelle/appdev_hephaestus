@@ -1,8 +1,7 @@
 ﻿namespace LibraryManagementSystem.DTO.GenresDTO
 {
-    public class GenresRead
+    public class GenresReadByID
     {
-        public int GenreId { get; set; }
         public string GenreName { get; set; } = null!;
     }
 }

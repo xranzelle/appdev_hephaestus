@@ -54,21 +54,19 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            // Map the changes from DTO to entity
             _mapper.Map(loanDto, loan);
 
-            // Handle the return date based on the status
             if (loan.StatusId == 2)
             {
-                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now); // Set return date
+                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
             }
             else
             {
-                loan.ReturnDate = null; // No return date if not returned
+                loan.ReturnDate = null;
             }
 
             await _context.SaveChangesAsync();
-            return NoContent(); // Successfully updated
+            return NoContent();
         }
 
         // This method creates a new loan based on the provided loan DTO.
@@ -77,11 +75,9 @@ namespace LibraryManagementSystem.Controllers
         {
             var loan = _mapper.Map<Loan>(loanDto);
 
-            // Add the new loan record
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
 
-            // Map the saved loan to a DTO and return the response
             var loansDto = _mapper.Map<LoansRead>(loan);
             return CreatedAtAction("GetLoan", new { id = loan.LoanId }, loansDto);
         }
@@ -96,11 +92,10 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            // Remove the loan from the database
             _context.Loans.Remove(loan);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Successfully deleted
+            return NoContent();
         }
     }
 }
