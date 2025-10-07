@@ -52,6 +52,7 @@ namespace LibraryManagementSystem.Controllers
         public async Task<IActionResult> DeleteArchivedMember(int id)
         {
             var archivedMember = await _context.ArchivedMembers.FindAsync(id);
+
             if (archivedMember == null)
             {
                 return NotFound();

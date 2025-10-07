@@ -97,7 +97,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsPost",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -123,7 +123,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -180,7 +180,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.Models.Book, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.BooksDTO.BooksRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -199,14 +199,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "book",
-        "Type": "LibraryManagementSystem.Models.Book",
+        "Name": "bookDTO",
+        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Book",
+        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -232,7 +232,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Book",
+        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -256,8 +256,8 @@
         "IsRequired": true
       },
       {
-        "Name": "book",
-        "Type": "LibraryManagementSystem.Models.Book",
+        "Name": "bookDTO",
+        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksPut",
         "IsRequired": true
       }
     ],

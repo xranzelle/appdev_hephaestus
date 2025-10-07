@@ -9,6 +9,7 @@ namespace LibraryManagementSystem.Profiles
         public AuthorsProfile() 
         {
             CreateMap<Author, AuthorsRead>();
+            CreateMap<Author, AuthorsReadByID>();
             CreateMap<AuthorsPost, Author>();
             CreateMap<AuthorsPut, Author>();
         }

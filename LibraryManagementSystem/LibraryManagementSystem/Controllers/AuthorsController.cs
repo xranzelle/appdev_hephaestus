@@ -31,7 +31,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AuthorsRead>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorsReadByID>> GetAuthor(int id)
         {
             var author = await _context.Authors.FindAsync(id);
             
@@ -40,7 +40,7 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var mappedAuthor = _mapper.Map<AuthorsRead>(author);
+            var mappedAuthor = _mapper.Map<AuthorsReadByID>(author);
             return Ok(mappedAuthor);
         }
 
@@ -66,7 +66,7 @@ namespace LibraryManagementSystem.Controllers
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AuthorsRead>> PostAuthor(AuthorsPost authorDTO)
+        public async Task<ActionResult<AuthorsPost>> PostAuthor(AuthorsPost authorDTO)
         {
             var author = _mapper.Map<Author>(authorDTO);
 
