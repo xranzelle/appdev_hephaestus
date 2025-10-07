@@ -71,7 +71,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.Models.Author, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -90,14 +90,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "author",
-        "Type": "LibraryManagementSystem.Models.Author",
+        "Name": "authorDTO",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Author",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -123,7 +123,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Author",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -147,8 +147,8 @@
         "IsRequired": true
       },
       {
-        "Name": "author",
-        "Type": "LibraryManagementSystem.Models.Author",
+        "Name": "authorDTO",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsPut",
         "IsRequired": true
       }
     ],
@@ -507,7 +507,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.Models.LoanStatus, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -526,14 +526,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loanStatus",
-        "Type": "LibraryManagementSystem.Models.LoanStatus",
+        "Name": "loanStatusDTO",
+        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.LoanStatus",
+        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -559,7 +559,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.LoanStatus",
+        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -583,8 +583,8 @@
         "IsRequired": true
       },
       {
-        "Name": "loanStatus",
-        "Type": "LibraryManagementSystem.Models.LoanStatus",
+        "Name": "loanStatusDTO",
+        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusPut",
         "IsRequired": true
       }
     ],

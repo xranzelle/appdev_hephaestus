@@ -1366,6 +1366,22 @@
           "build/net8.0/Microsoft.EntityFrameworkCore.Design.props": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.InMemory/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/8.0.19": {
         "type": "package",
         "dependencies": {
@@ -5045,6 +5061,20 @@
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
+    "Microsoft.EntityFrameworkCore.InMemory/8.0.0": {
+      "sha512": "/pT9FOO0BxGSRscK/ekEb6TdiP3+nnyhPLElE1yuVG/QaZLaBAuM3RoywBHdIxWoFALaOS7ktXlKzuMX3khJ4A==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.8.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
+      ]
+    },
     "Microsoft.EntityFrameworkCore.Relational/8.0.19": {
       "sha512": "WAjIlb+t/kaCAmq+bwb07lJ0M+mo1QWRhqcqO9MmS4uoE9PihjhsSwe5WwUDa5dGAYpahOAw3msOiyF1MCoO/w==",
       "type": "package",
@@ -8086,6 +8116,7 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.19",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.19",
+      "Microsoft.EntityFrameworkCore.InMemory >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.19",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.19",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
@@ -8155,6 +8186,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.19, )"
+          },
+          "Microsoft.EntityFrameworkCore.InMemory": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

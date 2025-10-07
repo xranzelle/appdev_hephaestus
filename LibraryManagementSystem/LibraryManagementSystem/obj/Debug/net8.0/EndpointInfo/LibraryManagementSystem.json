@@ -117,7 +117,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Author"
+                    "$ref": "#/components/schemas/AuthorsRead"
                   }
                 }
               },
@@ -125,7 +125,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Author"
+                    "$ref": "#/components/schemas/AuthorsRead"
                   }
                 }
               },
@@ -133,7 +133,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Author"
+                    "$ref": "#/components/schemas/AuthorsRead"
                   }
                 }
               }
@@ -149,17 +149,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPost"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPost"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPost"
               }
             }
           }
@@ -170,17 +170,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               }
             }
@@ -210,17 +210,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Author"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               }
             }
@@ -246,17 +246,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPut"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPut"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Author"
+                "$ref": "#/components/schemas/AuthorsPut"
               }
             }
           }
@@ -857,7 +857,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LoanStatus"
+                    "$ref": "#/components/schemas/LoanStatusRead"
                   }
                 }
               },
@@ -865,7 +865,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LoanStatus"
+                    "$ref": "#/components/schemas/LoanStatusRead"
                   }
                 }
               },
@@ -873,7 +873,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LoanStatus"
+                    "$ref": "#/components/schemas/LoanStatusRead"
                   }
                 }
               }
@@ -889,17 +889,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPost"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPost"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPost"
               }
             }
           }
@@ -910,17 +910,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               }
             }
@@ -950,17 +950,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatus"
+                  "$ref": "#/components/schemas/LoanStatusRead"
                 }
               }
             }
@@ -986,17 +986,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPut"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPut"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoanStatus"
+                "$ref": "#/components/schemas/LoanStatusPut"
               }
             }
           }
@@ -1218,11 +1218,14 @@
   "components": {
     "schemas": {
       "ArchivedMembersRead": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "email": {
             "type": "string",
@@ -1261,6 +1264,62 @@
             "items": {
               "$ref": "#/components/schemas/Book"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorsPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorsPut": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorsRead": {
+        "type": "object",
+        "properties": {
+          "authorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -1391,6 +1450,40 @@
             "items": {
               "$ref": "#/components/schemas/Loan"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanStatusPost": {
+        "type": "object",
+        "properties": {
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanStatusPut": {
+        "type": "object",
+        "properties": {
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanStatusRead": {
+        "type": "object",
+        "properties": {
+          "statusId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusName": {
+            "type": "string",
             "nullable": true
           }
         },
