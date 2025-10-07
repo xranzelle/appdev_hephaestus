@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using LibraryManagementSystem.DTO.MembersDTO;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -14,22 +11,26 @@ namespace LibraryManagementSystem.Controllers
     public class MembersController : ControllerBase
     {
         private readonly LibraryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public MembersController(LibraryDbContext context)
+        public MembersController(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Members
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
+        public async Task<ActionResult<IEnumerable<MembersRead>>> GetMembers()
         {
-            return await _context.Members.ToListAsync();
+            var members = await _context.Members.ToListAsync();
+            var membersDto = _mapper.Map<List<MembersRead>>(members);
+            return Ok(membersDto);
         }
 
         // GET: api/Members/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Member>> GetMember(int id)
+        public async Task<ActionResult<MembersRead>> GetMember(int id)
         {
             var member = await _context.Members.FindAsync(id);
 
@@ -38,49 +39,40 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            return member;
+            var memberDto = _mapper.Map<MembersRead>(member);
+            return Ok(memberDto);
         }
 
         // PUT: api/Members/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMember(int id, Member member)
+        public async Task<IActionResult> PutMember(int id, MembersPut memberDto)
         {
-            if (id != member.MemberId)
+            var member = await _context.Members.FindAsync(id);
+
+            if (member == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(member).State = EntityState.Modified;
+            // Map the changes from DTO to entity
+            _mapper.Map(memberDto, member);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MemberExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return NoContent(); // Successfully updated
         }
 
         // POST: api/Members
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Member>> PostMember(Member member)
+        public async Task<ActionResult<MembersRead>> PostMember(MembersPost memberDto)
         {
+            var member = _mapper.Map<Member>(memberDto);
+
             _context.Members.Add(member);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMember", new { id = member.MemberId }, member);
+            var memberReadDto = _mapper.Map<MembersRead>(member);
+            return CreatedAtAction("GetMember", new { id = member.MemberId }, memberReadDto);
         }
 
         // DELETE: api/Members/5
@@ -96,12 +88,7 @@ namespace LibraryManagementSystem.Controllers
             _context.Members.Remove(member);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        private bool MemberExists(int id)
-        {
-            return _context.Members.Any(e => e.MemberId == id);
+            return NoContent(); // Successfully deleted
         }
     }
 }

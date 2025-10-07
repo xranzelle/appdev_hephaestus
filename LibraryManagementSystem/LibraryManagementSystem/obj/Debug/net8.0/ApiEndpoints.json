@@ -616,7 +616,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.Models.Member, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.MembersDTO.MembersRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -635,14 +635,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "member",
-        "Type": "LibraryManagementSystem.Models.Member",
+        "Name": "memberDto",
+        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersPost",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Member",
+        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -668,7 +668,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.Models.Member",
+        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -692,8 +692,8 @@
         "IsRequired": true
       },
       {
-        "Name": "member",
-        "Type": "LibraryManagementSystem.Models.Member",
+        "Name": "memberDto",
+        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersPut",
         "IsRequired": true
       }
     ],

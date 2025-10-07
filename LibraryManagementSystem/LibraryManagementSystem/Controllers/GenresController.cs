@@ -23,9 +23,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenresRead>>> GetGenres()
         {
-            var genres = await _context.Genres
-                .Include(g => g.Books)
-                .ToListAsync();
+            var genres = await _context.Genres.ToListAsync();
 
             var genresDto = _mapper.Map<List<GenresRead>>(genres);
             return Ok(genresDto);
@@ -35,10 +33,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GenresReadByID>> GetGenre(int id)
         {
-            var genre = await _context.Genres
-                .Include(g => g.Books)
-                .Where(g => g.GenreId == id)
-                .FirstOrDefaultAsync();
+            var genre = await _context.Genres.FirstOrDefaultAsync(g => g.GenreId == id);
 
             if (genre == null)
             {

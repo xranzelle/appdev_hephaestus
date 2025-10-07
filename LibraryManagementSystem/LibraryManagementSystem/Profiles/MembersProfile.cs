@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using LibraryManagementSystem.Models;
 using LibraryManagementSystem.DTO.MembersDTO;
+using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Profiles
 {
     public class MembersProfile : Profile
     {
-        public MembersProfile() 
+        public MembersProfile()
         {
             CreateMap<Member, MembersRead>();
             CreateMap<MembersPost, Member>();
