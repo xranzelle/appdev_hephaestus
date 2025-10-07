@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementSystem.DTO.MembersDTO
+namespace LibraryManagementSystem.DTO.MembersDTO
 {
     public class MembersPut
     {
@@ -9,5 +9,7 @@
         public string? ContactNumber { get; set; }
 
         public string? Address { get; set; }
+
+        public DateOnly? MembershipDate { get; set; }
     }
 }
