@@ -31,7 +31,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BooksRead>> GetBook(int id)
+        public async Task<ActionResult<BooksReadByID>> GetBooks(int id)
         {
             var book = await _context.Books.FindAsync(id);
 
@@ -40,7 +40,7 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var mappedBook = _mapper.Map<BooksRead>(book);
+            var mappedBook = _mapper.Map<BooksReadByID>(book);
             return Ok(mappedBook);
         }
 
