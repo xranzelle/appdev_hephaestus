@@ -1,6 +1,4 @@
-﻿using LibraryManagementSystem.Models;
-
-namespace LibraryManagementSystem.DTO.BooksDTO
+﻿namespace LibraryManagementSystem.DTO.BooksDTO
 {
     public class BooksPut
     {
