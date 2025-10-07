@@ -13,71 +13,62 @@ namespace LibraryManagementSystem.Controllers
         private readonly LibraryDbContext _context;
         private readonly IMapper _mapper;
 
+        // Constructor to inject the context and AutoMapper service
         public LoanStatusController(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        // GET: api/LoanStatus
+        // This method retrieves all loan statuses from the database, ordered by StatusId.
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoanStatusRead>>> GetLoanStatuses()
         {
-            var loans = await _context.LoanStatuses.OrderBy(l => l.StatusId).ToListAsync();
-            var mappedLoans = _mapper.Map<List<LoanStatusRead>>(loans);
-
-            return Ok(mappedLoans);
+            var loanStatuses = await _context.LoanStatuses.OrderBy(l => l.StatusId).ToListAsync();
+            var mappedLoanStatuses = _mapper.Map<List<LoanStatusRead>>(loanStatuses);
+            return Ok(mappedLoanStatuses);
         }
 
-        // GET: api/LoanStatus/5
+        // This method retrieves a specific loan status by its ID.
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoanStatusRead>> GetLoanStatus(int id)
+        public async Task<ActionResult<LoanStatusReadByID>> GetLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-
             if (loanStatus == null)
             {
                 return NotFound();
             }
-
-            var mappedLoanStatus = _mapper.Map<LoanStatus>(loanStatus);
+            var mappedLoanStatus = _mapper.Map<LoanStatusReadByID>(loanStatus);
             return Ok(mappedLoanStatus);
         }
 
-        // PUT: api/LoanStatus/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // This method updates an existing loan status based on the provided ID and DTO.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLoanStatus(int id, LoanStatusPut loanStatusDTO)
         {
-            var loanStats = await _context.LoanStatuses.FindAsync(id);
-
-            if (loanStats == null)
+            var loanStatus = await _context.LoanStatuses.FindAsync(id);
+            if (loanStatus == null)
             {
                 return NotFound();
             }
-
-            _mapper.Map(loanStatusDTO, loanStats);
+            _mapper.Map(loanStatusDTO, loanStatus);
             await _context.SaveChangesAsync();
-
-            var mappedLoanStatus = _mapper.Map<LoanStatusRead>(loanStats);
-
+            var mappedLoanStatus = _mapper.Map<LoanStatusRead>(loanStatus);
             return Ok(mappedLoanStatus);
         }
 
-        // POST: api/LoanStatus
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // This method creates a new loan status from the provided DTO.
         [HttpPost]
         public async Task<ActionResult<LoanStatusRead>> PostLoanStatus(LoanStatusPost loanStatusDTO)
         {
             var loanStatus = _mapper.Map<LoanStatus>(loanStatusDTO);
-
             _context.LoanStatuses.Add(loanStatus);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLoanStatus", new { id = loanStatus.StatusId }, loanStatus);
+            var mappedLoanStatus = _mapper.Map<LoanStatusRead>(loanStatus);
+            return CreatedAtAction("GetLoanStatus", new { id = loanStatus.StatusId }, mappedLoanStatus);
         }
 
-        // DELETE: api/LoanStatus/5
+        // This method deletes a loan status by its ID.
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoanStatus(int id)
         {
@@ -86,16 +77,9 @@ namespace LibraryManagementSystem.Controllers
             {
                 return NotFound();
             }
-
             _context.LoanStatuses.Remove(loanStatus);
             await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool LoanStatusExists(int id)
-        {
-            return _context.LoanStatuses.Any(e => e.StatusId == id);
         }
     }
 }

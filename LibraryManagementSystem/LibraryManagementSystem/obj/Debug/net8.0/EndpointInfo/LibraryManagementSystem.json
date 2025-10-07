@@ -765,17 +765,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoansRead"
+                  "$ref": "#/components/schemas/LoansReadByID"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoansRead"
+                  "$ref": "#/components/schemas/LoansReadByID"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoansRead"
+                  "$ref": "#/components/schemas/LoansReadByID"
                 }
               }
             }
@@ -950,17 +950,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatusRead"
+                  "$ref": "#/components/schemas/LoanStatusReadByID"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatusRead"
+                  "$ref": "#/components/schemas/LoanStatusReadByID"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoanStatusRead"
+                  "$ref": "#/components/schemas/LoanStatusReadByID"
                 }
               }
             }
@@ -1586,6 +1586,16 @@
         },
         "additionalProperties": false
       },
+      "LoanStatusReadByID": {
+        "type": "object",
+        "properties": {
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoansPost": {
         "type": "object",
         "properties": {
@@ -1619,6 +1629,41 @@
         "additionalProperties": false
       },
       "LoansRead": {
+        "type": "object",
+        "properties": {
+          "loanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bookId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "memberId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "loanDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "returnDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoansReadByID": {
         "type": "object",
         "properties": {
           "bookId": {

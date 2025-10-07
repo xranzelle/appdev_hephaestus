@@ -19,22 +19,18 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Loans
+        // This method retrieves all loans from the database.
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoansRead>>> GetLoans()
         {
-            //var loans = await _context.Loans.ToListAsync();
-
-            var loans = await _context.Loans.Include(l => l.Status).ToListAsync();
-
-            var loansDto = _mapper.Map<List<LoansRead/*dto*/>>(loans);
-
+            var loans = await _context.Loans.ToListAsync();
+            var loansDto = _mapper.Map<List<LoansRead>>(loans);
             return Ok(loansDto);
         }
 
-        // GET: api/Loans/5
+        // This method retrieves a specific loan by its ID.
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoansRead>> GetLoan(int id)
+        public async Task<ActionResult<LoansReadByID>> GetLoan(int id)
         {
             var loan = await _context.Loans.FirstOrDefaultAsync(l => l.LoanId == id);
 
@@ -43,13 +39,11 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var loans_dto = _mapper.Map<LoansRead>(loan);
-
-            return Ok(loans_dto);
+            var loansDto = _mapper.Map<LoansReadByID>(loan);
+            return Ok(loansDto);
         }
 
-        // PUT: api/Loans/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // This method updates an existing loan based on the provided ID and loan DTO.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLoan(int id, LoansPut loanDto)
         {
@@ -60,51 +54,39 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
+            // Map the changes from DTO to entity
             _mapper.Map(loanDto, loan);
 
+            // Handle the return date based on the status
             if (loan.StatusId == 2)
             {
-                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
+                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now); // Set return date
             }
             else
             {
-                loan.ReturnDate = null;
+                loan.ReturnDate = null; // No return date if not returned
             }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoanExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            await _context.SaveChangesAsync();
+            return NoContent(); // Successfully updated
         }
 
-        // POST: api/Loans
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // This method creates a new loan based on the provided loan DTO.
         [HttpPost]
         public async Task<ActionResult<LoansRead>> PostLoan(LoansPost loanDto)
         {
-            var loans = _mapper.Map<Loan>(loanDto);
+            var loan = _mapper.Map<Loan>(loanDto);
 
-            _context.Loans.Add(loans);
+            // Add the new loan record
+            _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
 
-            var loans_dto = _mapper.Map<LoansRead>(loans);
-
-            return CreatedAtAction("GetLoan", new { id = loans.LoanId }, loans_dto);
+            // Map the saved loan to a DTO and return the response
+            var loansDto = _mapper.Map<LoansRead>(loan);
+            return CreatedAtAction("GetLoan", new { id = loan.LoanId }, loansDto);
         }
 
-        // DELETE: api/Loans/5
+        // This method deletes a loan by its ID.
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoan(int id)
         {
@@ -114,15 +96,11 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
+            // Remove the loan from the database
             _context.Loans.Remove(loan);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        private bool LoanExists(int id)
-        {
-            return _context.Loans.Any(e => e.LoanId == id);
+            return NoContent(); // Successfully deleted
         }
     }
 }

@@ -450,7 +450,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansRead",
+        "Type": "LibraryManagementSystem.DTO.LoansDTO.LoansReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -559,7 +559,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusRead",
+        "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -9,6 +9,7 @@ namespace LibraryManagementSystem.Profiles
         public LoansStatusProfile() 
         {
             CreateMap<LoanStatus, LoanStatusRead>();
+            CreateMap<LoanStatus, LoanStatusReadByID>();
             CreateMap<LoanStatusPut, LoanStatus>();
             CreateMap<LoanStatusPost, LoanStatus>();
         }
