@@ -1,8 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Models;
@@ -41,8 +39,24 @@ namespace LibraryManagementSystem.Controllers
             return genre;
         }
 
+        // GET: api/Genres/5/Books
+        [HttpGet("{id}/Books")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByGenreId(int id)
+        {
+            var genreExists = await _context.Genres.AnyAsync(g => g.GenreId == id);
+            if (!genreExists)
+            {
+                return NotFound($"Genre with ID {id} not found.");
+            }
+
+            var books = await _context.Books
+                .Where(b => b.GenreId == id)
+                .ToListAsync();
+
+            return Ok(books);
+        }
+
         // PUT: api/Genres/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGenre(int id, Genre genre)
         {
@@ -59,7 +73,8 @@ namespace LibraryManagementSystem.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GenreExists(id))
+                var exists = await _context.Genres.AnyAsync(e => e.GenreId == id);
+                if (!exists)
                 {
                     return NotFound();
                 }
@@ -73,7 +88,6 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // POST: api/Genres
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Genre>> PostGenre(Genre genre)
         {
@@ -97,11 +111,6 @@ namespace LibraryManagementSystem.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool GenreExists(int id)
-        {
-            return _context.Genres.Any(e => e.GenreId == id);
         }
     }
 }
