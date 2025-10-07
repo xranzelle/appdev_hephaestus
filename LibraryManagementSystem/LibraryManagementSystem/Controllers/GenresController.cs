@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,16 +22,47 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Genre>>> GetGenres()
+        public async Task<ActionResult<IEnumerable<object>>> GetGenres()
         {
-            return await _context.Genres.ToListAsync();
+            var genresWithBooks = await _context.Genres
+                .Include(g => g.Books)
+                .Select(g => new
+                {
+                    g.GenreId,
+                    g.GenreName,
+                    Books = g.Books.Select(b => new
+                    {
+                        b.Title,
+                        b.Author,
+                        b.ISBN,
+                        b.GenreId
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return genresWithBooks;
         }
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Genre>> GetGenre(int id)
+        public async Task<ActionResult<object>> GetGenre(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
+            var genre = await _context.Genres
+                .Include(g => g.Books)
+                .Where(g => g.GenreId == id)
+                .Select(g => new
+                {
+                    g.GenreId,
+                    g.GenreName,
+                    Books = g.Books.Select(b => new
+                    {
+                        b.Title,
+                        b.Author,
+                        b.ISBN,
+                        b.GenreId
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
 
             if (genre == null)
             {
@@ -80,7 +111,7 @@ namespace LibraryManagementSystem.Controllers
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, genre);
+            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, genre);
         }
 
         // DELETE: api/Genres/5
