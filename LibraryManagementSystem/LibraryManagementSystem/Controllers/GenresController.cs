@@ -32,10 +32,7 @@ namespace LibraryManagementSystem.Controllers
                     g.GenreName,
                     Books = g.Books.Select(b => new
                     {
-                        b.Title,
-                        b.Author,
-                        b.ISBN,
-                        b.GenreId
+                        b.Title
                     }).ToList()
                 })
                 .ToListAsync();
@@ -56,10 +53,7 @@ namespace LibraryManagementSystem.Controllers
                     g.GenreName,
                     Books = g.Books.Select(b => new
                     {
-                        b.Title,
-                        b.Author,
-                        b.ISBN,
-                        b.GenreId
+                        b.Title
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
