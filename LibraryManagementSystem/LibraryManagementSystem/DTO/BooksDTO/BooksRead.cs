@@ -1,6 +1,4 @@
-﻿using LibraryManagementSystem.Models;
-
-namespace LibraryManagementSystem.DTO.BooksDTO
+﻿namespace LibraryManagementSystem.DTO.BooksDTO
 {
     public class BooksRead
     {
@@ -8,9 +6,9 @@ namespace LibraryManagementSystem.DTO.BooksDTO
 
         public string Title { get; set; } = null!;
 
-        public virtual Author Author { get; set; } = null!;
+        public int AuthorId { get; set; }
 
-        public virtual Genre Genre { get; set; } = null!;
+        public int GenreId { get; set; }
 
         public string? Isbn { get; set; }
 
