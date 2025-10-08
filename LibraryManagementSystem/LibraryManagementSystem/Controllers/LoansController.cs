@@ -92,23 +92,54 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // ============================================================
-        // DELETE: api/Loans/{id}
-        // Description: Deletes a loan record by ID.
+        // GET: api/Loans/status/{statusId}
+        // Description: Returns all loans filtered by Status ID.
+        // Checks both if the Status ID exists and if any loans have that status.
         // ============================================================
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoan(int id)
+        [HttpGet("status/{statusId}")]
+        public async Task<ActionResult<IEnumerable<LoansByStatusIDRead>>> GetLoansByStatus(int statusId)
         {
-            var loan = await _context.Loans.FindAsync(id);
-
-            if (loan == null)
+            var statusExists = await _context.LoanStatuses.AnyAsync(s => s.StatusId == statusId);
+            if (!statusExists)
             {
-                return NotFound();
+                return NotFound($"Status ID {statusId} not found.");
+            }
+                
+            var loans = await _context.Loans.Where(l => l.StatusId == statusId).OrderBy(l => l.LoanDate).ToListAsync();
+
+            if (!loans.Any())
+            {
+                return NotFound($"No loans found with Status ID {statusId}.");
+            }
+                
+            var mappedLoans = _mapper.Map<List<LoansByStatusIDRead>>(loans);
+            return Ok(mappedLoans);
+        }
+
+        // ============================================================
+        // GET: api/Loans/member/{memberId}
+        // Description: Returns all loans made by a specific member.
+        // Checks if the member exists and if the member has any loans.
+        // ============================================================
+        [HttpGet("member/{memberId}")]
+        public async Task<ActionResult<IEnumerable<LoansByMemberIDRead>>> GetLoansByMember(int memberId)
+        {
+            // Check if member exists
+            var memberExists = await _context.Members.AnyAsync(m => m.MemberId == memberId);
+            if (!memberExists)
+            {
+                return NotFound($"Member with ID {memberId} not found.");
+            }
+                
+            var loans = await _context.Loans.Where(l => l.MemberId == memberId).OrderByDescending(l => l.LoanDate).ToListAsync();
+
+            if (!loans.Any())
+            {
+                return NotFound($"No loans found for Member ID {memberId}.");
             }
 
-            _context.Loans.Remove(loan);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var mappedLoans = _mapper.Map<List<LoansByMemberIDRead>>(loans);
+            return Ok(mappedLoans);
         }
     }
 }

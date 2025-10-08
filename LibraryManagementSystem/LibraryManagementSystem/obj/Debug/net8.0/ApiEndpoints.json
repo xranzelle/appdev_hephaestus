@@ -280,6 +280,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "LibraryManagementSystem.Controllers.BooksController",
+    "Method": "GetBooksByAuthorId",
+    "RelativePath": "api/Books/author/{authorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "authorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.BooksDTO.BooksByAuthorIDRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "LibraryManagementSystem.Controllers.GenresController",
     "Method": "GetGenres",
     "RelativePath": "api/Genres",
@@ -316,6 +342,32 @@
     "ReturnTypes": [
       {
         "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresRead",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LibraryManagementSystem.Controllers.GenresController",
+    "Method": "GetBooksByGenre",
+    "RelativePath": "api/Genres/{genreId}/books",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "genreId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.GenresDTO.GenreBooksRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -367,22 +419,6 @@
       {
         "Name": "genreDto",
         "Type": "LibraryManagementSystem.DTO.GenresDTO.GenresPut",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LibraryManagementSystem.Controllers.GenresController",
-    "Method": "DeleteGenre",
-    "RelativePath": "api/Genres/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -483,19 +519,55 @@
   },
   {
     "ContainingType": "LibraryManagementSystem.Controllers.LoansController",
-    "Method": "DeleteLoan",
-    "RelativePath": "api/Loans/{id}",
-    "HttpMethod": "DELETE",
+    "Method": "GetLoansByMember",
+    "RelativePath": "api/Loans/member/{memberId}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "memberId",
         "Type": "System.Int32",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.LoansDTO.LoansByMemberIDRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LibraryManagementSystem.Controllers.LoansController",
+    "Method": "GetLoansByStatus",
+    "RelativePath": "api/Loans/status/{statusId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "statusId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.LoansDTO.LoansByStatusIDRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "LibraryManagementSystem.Controllers.LoanStatusController",
@@ -526,7 +598,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loanStatusDTO",
+        "Name": "dto",
         "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusPost",
         "IsRequired": true
       }
@@ -583,7 +655,7 @@
         "IsRequired": true
       },
       {
-        "Name": "loanStatusDTO",
+        "Name": "dto",
         "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusPut",
         "IsRequired": true
       }

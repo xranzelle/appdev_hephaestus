@@ -87,23 +87,27 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // ============================================================
-        // DELETE: api/Genres/{id}
-        // Description: Deletes a genre record by ID.
+        // GET: api/Genres/{genreId}/books
+        // Description: Returns all books belonging to a specific genre.
         // ============================================================
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGenre(int id)
+        [HttpGet("{genreId}/books")]
+        public async Task<ActionResult<IEnumerable<GenreBooksRead>>> GetBooksByGenre(int genreId)
         {
-            var genre = await _context.Genres.FindAsync(id);
-
-            if (genre == null)
+            var genreExists = await _context.Genres.AnyAsync(g => g.GenreId == genreId);
+            if (!genreExists)
             {
-                return NotFound();
+                return NotFound($"Genre with ID {genreId} not found.");
             }
 
-            _context.Genres.Remove(genre);
-            await _context.SaveChangesAsync();
+            var books = await _context.Books.Where(b => b.GenreId == genreId).OrderBy(b => b.Title).ToListAsync();
 
-            return NoContent();
+            if (!books.Any())
+            {
+                return NotFound($"No books found under Genre ID {genreId}.");
+            }
+                
+            var mappedBooks = _mapper.Map<List<GenreBooksRead>>(books);
+            return Ok(mappedBooks);
         }
     }
 }

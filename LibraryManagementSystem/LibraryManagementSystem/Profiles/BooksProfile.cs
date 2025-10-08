@@ -9,6 +9,8 @@ namespace LibraryManagementSystem.Profiles
         public BooksProfile() 
         {
             CreateMap<Book, BooksRead>();
+            CreateMap<Book, BooksReadByID>();
+            CreateMap<Book, BooksByAuthorIDRead>();
             CreateMap<BooksPost, Book>();
             CreateMap<BooksPut, Book>();
         }   

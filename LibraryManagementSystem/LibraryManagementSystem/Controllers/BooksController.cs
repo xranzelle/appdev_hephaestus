@@ -110,5 +110,36 @@ namespace LibraryManagementSystem.Controllers
 
             return NoContent();
         }
+
+        // ============================================================
+        // GET: api/Books/author/{authorId}
+        // Description: Returns all books written by a specific author.
+        // ============================================================
+        [HttpGet("author/{authorId}")]
+        public async Task<ActionResult<IEnumerable<BooksByAuthorIDRead>>> GetBooksByAuthorId(int authorId)
+        {
+            // Check if author exists
+            var authorExists = await _context.Authors.AnyAsync(a => a.AuthorId == authorId);
+            if (!authorExists)
+            {
+                return NotFound($"Author with ID {authorId} not found.");
+            }
+
+            // Get books by author
+            var books = await _context.Books
+                .Where(b => b.AuthorId == authorId)
+                .OrderBy(b => b.Title)
+                .ToListAsync();
+
+            // Map to DTO
+            var mappedBooks = _mapper.Map<List<BooksByAuthorIDRead>>(books);
+
+            if (!mappedBooks.Any())
+            {
+                return NotFound($"No books found for Author ID {authorId}.");
+            }
+
+            return Ok(mappedBooks);
+        }
     }
 }

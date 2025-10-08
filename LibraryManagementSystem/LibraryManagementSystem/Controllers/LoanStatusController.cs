@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryManagementSystem.DTO.LoanStatusDTO;
+using LibraryManagementSystem.DTO.LoansDTO;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,15 +22,17 @@ namespace LibraryManagementSystem.Controllers
 
         // ============================================================
         // GET: api/LoanStatus
-        // Description: Returns a list of all loan statuses, ordered by StatusId.
+        // Description: Returns all loan statuses.
         // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoanStatusRead>>> GetLoanStatuses()
         {
-            var loanStatuses = await _context.LoanStatuses.OrderBy(l => l.StatusId).ToListAsync();
+            var loanStatuses = await _context.LoanStatuses
+                .OrderBy(l => l.StatusId)
+                .ToListAsync();
 
-            var mappedLoanStatuses = _mapper.Map<List<LoanStatusRead>>(loanStatuses);
-            return Ok(mappedLoanStatuses);
+            var mapped = _mapper.Map<List<LoanStatusRead>>(loanStatuses);
+            return Ok(mapped);
         }
 
         // ============================================================
@@ -40,31 +43,25 @@ namespace LibraryManagementSystem.Controllers
         public async Task<ActionResult<LoanStatusReadByID>> GetLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-
             if (loanStatus == null)
-            {
                 return NotFound();
-            }
 
-            var mappedLoanStatus = _mapper.Map<LoanStatusReadByID>(loanStatus);
-            return Ok(mappedLoanStatus);
+            var mapped = _mapper.Map<LoanStatusReadByID>(loanStatus);
+            return Ok(mapped);
         }
 
         // ============================================================
         // PUT: api/LoanStatus/{id}
-        // Description: Updates an existing loan status by ID.
+        // Description: Updates an existing loan status.
         // ============================================================
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoanStatus(int id, LoanStatusPut loanStatusDTO)
+        public async Task<IActionResult> PutLoanStatus(int id, LoanStatusPut dto)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-
             if (loanStatus == null)
-            {
                 return NotFound();
-            }
 
-            _mapper.Map(loanStatusDTO, loanStatus);
+            _mapper.Map(dto, loanStatus);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -72,33 +69,30 @@ namespace LibraryManagementSystem.Controllers
 
         // ============================================================
         // POST: api/LoanStatus
-        // Description: Creates a new loan status record.
+        // Description: Creates a new loan status.
         // ============================================================
         [HttpPost]
-        public async Task<ActionResult<LoanStatusRead>> PostLoanStatus(LoanStatusPost loanStatusDTO)
+        public async Task<ActionResult<LoanStatusRead>> PostLoanStatus(LoanStatusPost dto)
         {
-            var loanStatus = _mapper.Map<LoanStatus>(loanStatusDTO);
+            var loanStatus = _mapper.Map<LoanStatus>(dto);
 
             _context.LoanStatuses.Add(loanStatus);
             await _context.SaveChangesAsync();
 
-            var mappedLoanStatus = _mapper.Map<LoanStatusRead>(loanStatus);
-            return CreatedAtAction(nameof(GetLoanStatus), new { id = loanStatus.StatusId }, mappedLoanStatus);
+            var mapped = _mapper.Map<LoanStatusRead>(loanStatus);
+            return CreatedAtAction(nameof(GetLoanStatus), new { id = loanStatus.StatusId }, mapped);
         }
 
         // ============================================================
         // DELETE: api/LoanStatus/{id}
-        // Description: Deletes a loan status record by ID.
+        // Description: Deletes a loan status by ID.
         // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-
             if (loanStatus == null)
-            {
                 return NotFound();
-            }
 
             _context.LoanStatuses.Remove(loanStatus);
             await _context.SaveChangesAsync();

@@ -10,6 +10,8 @@ namespace LibraryManagementSystem.Profiles
         {
             CreateMap<Loan, LoansRead>();
             CreateMap<Loan, LoansReadByID>();
+            CreateMap<Loan, LoansByStatusIDRead>();
+            CreateMap<Loan, LoansByMemberIDRead>();
             CreateMap<LoansPut, Loan>();
             CreateMap<LoansPost, Loan>();
         }

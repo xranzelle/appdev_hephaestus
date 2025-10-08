@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\archivedmemberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\archivedmemberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ArchivedMembersController.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\ArchivedMembersController.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\ArchivedMembersController.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\ArchivedMembersController.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\ArchivedMembersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "GenresController.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\GenresController.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T11:22:25.434Z",
+              "WhenOpened": "2025-10-08T14:24:55.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BooksController.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\BooksController.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\BooksController.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T14:24:39.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoansController.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoansController.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\LoansController.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoansController.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\LoansController.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAqwJAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T14:21:41.019Z",
               "EditorCaption": ""
             }
           ]

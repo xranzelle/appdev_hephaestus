@@ -10,6 +10,7 @@ namespace LibraryManagementSystem.Profiles
         {
             CreateMap<Genre, GenresRead>();
             CreateMap<Genre, GenresReadByID>();
+            CreateMap<Book, GenreBooksRead>();
             CreateMap<GenresPost, Genre>();
             CreateMap<GenresPut, Genre>();
         }
