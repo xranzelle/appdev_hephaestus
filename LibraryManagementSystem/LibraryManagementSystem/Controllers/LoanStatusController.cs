@@ -86,25 +86,5 @@ namespace LibraryManagementSystem.Controllers
             var mapped = _mapper.Map<LoanStatusRead>(loanStatus);
             return CreatedAtAction(nameof(GetLoanStatus), new { id = loanStatus.StatusId }, mapped);
         }
-
-        // ============================================================
-        // DELETE: api/LoanStatus/{id}
-        // Description: Deletes a loan status by ID.
-        // ============================================================
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoanStatus(int id)
-        {
-            var loanStatus = await _context.LoanStatuses.FindAsync(id);
-
-            if (loanStatus == null)
-            {
-                return NotFound();
-            }
-                
-            _context.LoanStatuses.Remove(loanStatus);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
     }
 }

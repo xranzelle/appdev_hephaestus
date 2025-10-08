@@ -170,17 +170,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthorsPost"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthorsPost"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthorsPost"
+                  "$ref": "#/components/schemas/AuthorsRead"
                 }
               }
             }
@@ -1160,27 +1160,6 @@
             "description": "OK"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "LoanStatus"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
     "/api/Members": {
@@ -1549,16 +1528,18 @@
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "genreId": {
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "publishedYear": {
-            "maximum": 2100,
+            "maximum": 2025,
             "minimum": 1000,
             "type": "integer",
             "format": "int32",
@@ -1589,16 +1570,18 @@
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "genreId": {
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "publishedYear": {
-            "maximum": 2100,
+            "maximum": 2025,
             "minimum": 1000,
             "type": "integer",
             "format": "int32",
@@ -1901,7 +1884,8 @@
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
         },
         "additionalProperties": false

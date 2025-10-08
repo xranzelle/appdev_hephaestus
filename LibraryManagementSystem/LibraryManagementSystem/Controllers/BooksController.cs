@@ -84,7 +84,9 @@ namespace LibraryManagementSystem.Controllers
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
+            var mappedBook = _mapper.Map<BooksRead>(book);
+
+            return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, mappedBook);
         }
 
         // ============================================================

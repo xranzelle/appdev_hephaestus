@@ -97,7 +97,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsPost",
+        "Type": "LibraryManagementSystem.DTO.AuthorsDTO.AuthorsRead",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -657,22 +657,6 @@
       {
         "Name": "dto",
         "Type": "LibraryManagementSystem.DTO.LoanStatusDTO.LoanStatusPut",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LibraryManagementSystem.Controllers.LoanStatusController",
-    "Method": "DeleteLoanStatus",
-    "RelativePath": "api/LoanStatus/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

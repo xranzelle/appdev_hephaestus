@@ -77,14 +77,16 @@ namespace LibraryManagementSystem.Controllers
         // Description: Creates a new author record in the database.
         // ============================================================
         [HttpPost]
-        public async Task<ActionResult<AuthorsPost>> PostAuthor(AuthorsPost authorDTO)
+        public async Task<ActionResult<AuthorsRead>> PostAuthor(AuthorsPost authorDTO)
         {
             var author = _mapper.Map<Author>(authorDTO);
 
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAuthor), new { id = author.AuthorId }, author);
+            var mappedAuthor = _mapper.Map<AuthorsRead>(author);
+
+            return CreatedAtAction(nameof(GetAuthor), new { id = author.AuthorId }, mappedAuthor);
         }
 
         // ============================================================

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.DTO.LoansDTO
 {
@@ -10,6 +11,7 @@ namespace LibraryManagementSystem.DTO.LoansDTO
 
         [Required(ErrorMessage = "StatusId is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "StatusId must be a valid positive number.")]
+        [DefaultValue(1)]
         public int StatusId { get; set; }
     }
 }

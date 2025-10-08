@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.DTO.BooksDTO
 {
@@ -10,13 +11,15 @@ namespace LibraryManagementSystem.DTO.BooksDTO
 
         [Required(ErrorMessage = "AuthorId is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "AuthorId must be a positive number.")]
+        [DefaultValue(1)]
         public int AuthorId { get; set; }
 
         [Required(ErrorMessage = "GenreId is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "GenreId must be a positive number.")]
+        [DefaultValue(1)]
         public int GenreId { get; set; }
 
-        [Range(1000, 2100, ErrorMessage = "PublishedYear must be between 1000 and 2100.")]
+        [Range(1000, 2025, ErrorMessage = "PublishedYear must be between 1000 and 2100.")]
         public int? PublishedYear { get; set; }
 
         [RegularExpression(@"^\d{10}(\d{3})?$", ErrorMessage = "ISBN must be 10 or 13 digits.")]

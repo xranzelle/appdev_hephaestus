@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loansread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loansread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loansbymemberidread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loansbymemberidread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loansbystatusidread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loansbystatusidread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\loanstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\loanstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoansRead.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "LoanStatusController.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoanStatusController.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\LoanStatusController.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoanStatusController.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\LoanStatusController.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAIwFcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T15:17:50.997Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoansByStatusIDRead.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansByStatusIDRead.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansByStatusIDRead.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansByStatusIDRead.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansByStatusIDRead.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T15:17:36.82Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LoansByMemberIDRead.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansByMemberIDRead.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansByMemberIDRead.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansByMemberIDRead.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansByMemberIDRead.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T15:15:55.482Z",
+              "WhenOpened": "2025-10-08T16:35:05.606Z",
               "EditorCaption": ""
             }
           ]
