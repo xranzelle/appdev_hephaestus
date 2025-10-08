@@ -20,4 +20,6 @@ namespace LibraryManagementSystem.DTO.BooksDTO
         public int? PublishedYear { get; set; }
 
         [RegularExpression(@"^\d{10}(\d{3})?$", ErrorMessage = "ISBN must be 10 or 13 digits.")]
-        public strin
+         public string? Isbn { get; set; }
+    }
+}
