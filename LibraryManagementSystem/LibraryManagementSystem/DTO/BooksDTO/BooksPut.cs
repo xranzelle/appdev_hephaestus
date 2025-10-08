@@ -16,7 +16,7 @@ namespace LibraryManagementSystem.DTO.BooksDTO
         [Range(1, int.MaxValue, ErrorMessage = "GenreId must be a positive number.")]
         public int GenreId { get; set; }
 
-        [Range(1000, 2100, ErrorMessage = "PublishedYear must be between 1000 and 2100.")]
+        [Range(1000, 2025, ErrorMessage = "PublishedYear must be between 1000 and 2025.")]
         public int? PublishedYear { get; set; }
 
         [RegularExpression(@"^\d{10}(\d{3})?$", ErrorMessage = "ISBN must be 10 or 13 digits.")]
