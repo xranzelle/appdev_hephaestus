@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LibraryManagementSystem.DTO.MembersDTO;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +23,10 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MembersRead>>> GetMembers()
         {
-            var members = await _context.Members.ToListAsync();
-            var membersDto = _mapper.Map<List<MembersRead>>(members);
-            return Ok(membersDto);
+            var members = await _context.Members.OrderBy(m => m.MemberId).ToListAsync();
+            var mappedMembers = _mapper.Map<List<MembersRead>>(members);
+
+            return Ok(mappedMembers);
         }
 
         // GET: api/Members/5
@@ -39,8 +40,8 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var memberDto = _mapper.Map<MembersRead>(member);
-            return Ok(memberDto);
+            var mappedMember = _mapper.Map<MembersRead>(member);
+            return Ok(mappedMember);
         }
 
         // PUT: api/Members/5
@@ -54,12 +55,12 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            // Map the changes from DTO to entity
+            // Update entity with mapped DTO fields
             _mapper.Map(memberDto, member);
-
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Successfully updated
+            var updatedMember = _mapper.Map<MembersRead>(member);
+            return Ok(updatedMember); // Return updated version
         }
 
         // POST: api/Members
@@ -71,8 +72,9 @@ namespace LibraryManagementSystem.Controllers
             _context.Members.Add(member);
             await _context.SaveChangesAsync();
 
-            var memberReadDto = _mapper.Map<MembersRead>(member);
-            return CreatedAtAction("GetMember", new { id = member.MemberId }, memberReadDto);
+            var mappedMember = _mapper.Map<MembersRead>(member);
+
+            return CreatedAtAction(nameof(GetMember), new { id = member.MemberId }, mappedMember);
         }
 
         // DELETE: api/Members/5
@@ -88,7 +90,7 @@ namespace LibraryManagementSystem.Controllers
             _context.Members.Remove(member);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Successfully deleted
+            return NoContent();
         }
     }
 }
