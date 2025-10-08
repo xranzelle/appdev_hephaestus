@@ -4,6 +4,7 @@ namespace LibraryManagementSystem.DTO.LoansDTO
 {
     public class LoansPut
     {
+        //testing if nagana ba yung approval ni ranz
         [Required(ErrorMessage = "DueDate is required.")]
         [DataType(DataType.Date)]
         [CustomValidation(typeof(LoansPut), nameof(ValidateDueDate))]
