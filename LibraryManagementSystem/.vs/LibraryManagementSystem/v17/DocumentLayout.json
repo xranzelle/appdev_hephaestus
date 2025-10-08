@@ -55,8 +55,7 @@
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersPost.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:54:57.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-08T14:54:57.066Z"
             },
             {
               "$type": "Document",
@@ -68,8 +67,7 @@
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPut.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:54:19.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-08T14:54:19.266Z"
             },
             {
               "$type": "Document",
@@ -81,8 +79,7 @@
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:54:07.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-08T14:54:07.395Z"
             },
             {
               "$type": "Document",
@@ -94,8 +91,7 @@
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:53:34.329Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-08T14:53:34.329Z"
             }
           ]
         }

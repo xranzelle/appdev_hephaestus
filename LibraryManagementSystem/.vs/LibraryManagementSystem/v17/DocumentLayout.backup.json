@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\membersdto\\membersread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\membersdto\\membersread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\booksdto\\booksput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\booksdto\\booksput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loanspost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loanspost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loansread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loansread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\membersdto\\membersput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\membersdto\\membersput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,20 +11,16 @@
       "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\membersdto\\memberspost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loansput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loansput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\loansdto\\loanspost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\loansdto\\loanspost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\controllers\\genrescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|c:\\users\\ranze\\documents\\github\\appdev_hephaestus\\librarymanagementsystem\\librarymanagementsystem\\dto\\booksdto\\booksput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC6EA1B0-BF31-4456-AE81-250F2A7A6FC7}|LibraryManagementSystem\\LibraryManagementSystem.csproj|solutionrelative:librarymanagementsystem\\dto\\booksdto\\booksput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,56 +35,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MembersRead.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\MembersDTO\\MembersRead.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersRead.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\MembersDTO\\MembersRead.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersRead.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:45:36.593Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BooksPut.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:44:46.275Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoansPost.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:44:21.251Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "LoansRead.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansRead.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:44:20.116Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "MembersPut.cs",
               "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\MembersDTO\\MembersPut.cs",
               "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersPut.cs",
@@ -112,67 +42,56 @@
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersPut.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:42:30.209Z"
+              "WhenOpened": "2025-10-08T14:54:59.49Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MembersController.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\MembersController.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\MembersController.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\MembersController.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:41:59.152Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "MembersPost.cs",
               "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\MembersDTO\\MembersPost.cs",
               "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersPost.cs",
               "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\MembersDTO\\MembersPost.cs",
               "RelativeToolTip": "LibraryManagementSystem\\DTO\\MembersDTO\\MembersPost.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:41:16.595Z"
+              "WhenOpened": "2025-10-08T14:54:57.066Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "GenresController.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\GenresController.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\GenresController.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\GenresController.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "LoansPut.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPut.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPut.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPut.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPut.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:24:55.407Z"
+              "WhenOpened": "2025-10-08T14:54:19.266Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BooksController.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\BooksController.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\BooksController.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\BooksController.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "LoansPost.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\DTO\\LoansDTO\\LoansPost.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:24:39.573Z"
+              "WhenOpened": "2025-10-08T14:54:07.395Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "LoansController.cs",
-              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoansController.cs",
-              "RelativeDocumentMoniker": "LibraryManagementSystem\\Controllers\\LoansController.cs",
-              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\Controllers\\LoansController.cs",
-              "RelativeToolTip": "LibraryManagementSystem\\Controllers\\LoansController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJAAAAABAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "BooksPut.cs",
+              "DocumentMoniker": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
+              "ToolTip": "C:\\Users\\ranze\\Documents\\GitHub\\appdev_hephaestus\\LibraryManagementSystem\\LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
+              "RelativeToolTip": "LibraryManagementSystem\\DTO\\BooksDTO\\BooksPut.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T14:21:41.019Z"
+              "WhenOpened": "2025-10-08T14:53:34.329Z"
             }
           ]
         }

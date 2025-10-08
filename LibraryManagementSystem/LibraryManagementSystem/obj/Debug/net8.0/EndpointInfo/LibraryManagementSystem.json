@@ -1414,13 +1414,19 @@
         "additionalProperties": false
       },
       "AuthorsPost": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 25,
+            "minLength": 2,
+            "type": "string"
           },
           "nationality": {
+            "maxLength": 25,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -1433,13 +1439,19 @@
         "additionalProperties": false
       },
       "AuthorsPut": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 25,
+            "minLength": 2,
+            "type": "string"
           },
           "nationality": {
+            "maxLength": 25,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -1521,26 +1533,39 @@
         "additionalProperties": false
       },
       "BooksPost": {
+        "required": [
+          "authorId",
+          "genreId",
+          "title"
+        ],
         "type": "object",
         "properties": {
           "title": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
           },
           "authorId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "genreId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "publishedYear": {
+            "maximum": 2100,
+            "minimum": 1000,
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
           "isbn": {
+            "pattern": "^\\d{10}(\\d{3})?$",
             "type": "string",
             "nullable": true
           }
@@ -1660,21 +1685,29 @@
         "additionalProperties": false
       },
       "GenresPost": {
+        "required": [
+          "genreName"
+        ],
         "type": "object",
         "properties": {
           "genreName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "GenresPut": {
+        "required": [
+          "genreName"
+        ],
         "type": "object",
         "properties": {
           "genreName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -1704,21 +1737,29 @@
         "additionalProperties": false
       },
       "LoanStatusPost": {
+        "required": [
+          "statusName"
+        ],
         "type": "object",
         "properties": {
           "statusName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "LoanStatusPut": {
+        "required": [
+          "statusName"
+        ],
         "type": "object",
         "properties": {
           "statusName": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -1925,10 +1966,6 @@
           "address": {
             "type": "string",
             "nullable": true
-          },
-          "membershipDate": {
-            "type": "string",
-            "format": "date"
           }
         },
         "additionalProperties": false
