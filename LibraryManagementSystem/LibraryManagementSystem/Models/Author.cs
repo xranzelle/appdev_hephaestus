@@ -1,14 +1,23 @@
-﻿namespace LibraryManagementSystem.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-public partial class Author
+namespace LibraryManagementSystem.Models
 {
-    public int AuthorId { get; set; }
+    public partial class Author
+    {
+        public int AuthorId { get; set; }
 
-    public string Name { get; set; } = null!;
+        [Required(ErrorMessage = "Name is required.")]
+        [StringLength(100, ErrorMessage = "Name can't be longer than 100 characters.")]
+        public string Name { get; set; } = null!;
 
-    public string? Nationality { get; set; }
+        [StringLength(50, ErrorMessage = "Nationality can't be longer than 50 characters.")]
+        public string? Nationality { get; set; }
 
-    public DateOnly? Birthdate { get; set; }
+        // Optional: You can add a custom validation attribute or a range check if needed
+        public DateOnly? Birthdate { get; set; }
 
-    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+        public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+    }
 }
