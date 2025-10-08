@@ -6,7 +6,7 @@
 
         public int BookId { get; set; }
 
-        public DateOnly LoanDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateOnly LoanDate { get; set; }
 
         public DateOnly DueDate { get; set; }
 

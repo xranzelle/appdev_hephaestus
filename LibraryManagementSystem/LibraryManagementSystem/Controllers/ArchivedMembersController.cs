@@ -27,7 +27,9 @@ namespace LibraryManagementSystem.Controllers
         public async Task<ActionResult<IEnumerable<ArchivedMembersRead>>> GetArchivedMembers()
         {
             var member = await _context.ArchivedMembers.ToListAsync();
+
             var archive_memberdto = _mapper.Map<List<ArchivedMembersRead>>(member);
+
             return Ok(archive_memberdto);
         }
 

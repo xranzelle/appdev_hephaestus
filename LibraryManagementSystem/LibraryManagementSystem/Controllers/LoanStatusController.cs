@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using LibraryManagementSystem.DTO.LoanStatusDTO;
-using LibraryManagementSystem.DTO.LoansDTO;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,11 +26,10 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoanStatusRead>>> GetLoanStatuses()
         {
-            var loanStatuses = await _context.LoanStatuses
-                .OrderBy(l => l.StatusId)
-                .ToListAsync();
+            var loanStatuses = await _context.LoanStatuses.OrderBy(l => l.StatusId).ToListAsync();
 
             var mapped = _mapper.Map<List<LoanStatusRead>>(loanStatuses);
+
             return Ok(mapped);
         }
 
@@ -43,8 +41,11 @@ namespace LibraryManagementSystem.Controllers
         public async Task<ActionResult<LoanStatusReadByID>> GetLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
+
             if (loanStatus == null)
+            {
                 return NotFound();
+            }
 
             var mapped = _mapper.Map<LoanStatusReadByID>(loanStatus);
             return Ok(mapped);
@@ -58,9 +59,12 @@ namespace LibraryManagementSystem.Controllers
         public async Task<IActionResult> PutLoanStatus(int id, LoanStatusPut dto)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-            if (loanStatus == null)
-                return NotFound();
 
+            if (loanStatus == null)
+            {
+                return NotFound();
+            }
+            
             _mapper.Map(dto, loanStatus);
             await _context.SaveChangesAsync();
 
@@ -91,9 +95,12 @@ namespace LibraryManagementSystem.Controllers
         public async Task<IActionResult> DeleteLoanStatus(int id)
         {
             var loanStatus = await _context.LoanStatuses.FindAsync(id);
-            if (loanStatus == null)
-                return NotFound();
 
+            if (loanStatus == null)
+            {
+                return NotFound();
+            }
+                
             _context.LoanStatuses.Remove(loanStatus);
             await _context.SaveChangesAsync();
 

@@ -58,17 +58,15 @@ namespace LibraryManagementSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, AuthorsPut authorDTO)
         {
-            // Find existing author
             var author = await _context.Authors.FindAsync(id);
+
             if (author == null)
             {
                 return NotFound();
             }
 
-            // Map the updated values
             _mapper.Map(authorDTO, author);
 
-            // Save changes
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -86,7 +84,6 @@ namespace LibraryManagementSystem.Controllers
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            // Returns 201 Created with location of the new resource
             return CreatedAtAction(nameof(GetAuthor), new { id = author.AuthorId }, author);
         }
 

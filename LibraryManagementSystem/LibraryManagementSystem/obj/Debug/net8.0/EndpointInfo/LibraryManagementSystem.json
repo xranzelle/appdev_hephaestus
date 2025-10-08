@@ -1573,26 +1573,39 @@
         "additionalProperties": false
       },
       "BooksPut": {
+        "required": [
+          "authorId",
+          "genreId",
+          "title"
+        ],
         "type": "object",
         "properties": {
           "title": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
           },
           "authorId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "genreId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "publishedYear": {
+            "maximum": 2100,
+            "minimum": 1000,
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
           "isbn": {
+            "pattern": "^\\d{10}(\\d{3})?$",
             "type": "string",
             "nullable": true
           }
@@ -1851,6 +1864,11 @@
         "additionalProperties": false
       },
       "LoansPost": {
+        "required": [
+          "bookId",
+          "dueDate",
+          "memberId"
+        ],
         "type": "object",
         "properties": {
           "memberId": {
@@ -1869,6 +1887,10 @@
         "additionalProperties": false
       },
       "LoansPut": {
+        "required": [
+          "dueDate",
+          "statusId"
+        ],
         "type": "object",
         "properties": {
           "dueDate": {
@@ -1876,6 +1898,8 @@
             "format": "date"
           },
           "statusId": {
+            "maximum": 2147483647,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           }
@@ -1949,21 +1973,30 @@
         "additionalProperties": false
       },
       "MembersPost": {
+        "required": [
+          "email",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
           },
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "contactNumber": {
+            "pattern": "^(09|\\+639)\\d{9}$",
             "type": "string",
             "nullable": true
           },
           "address": {
+            "maxLength": 250,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -1971,21 +2004,30 @@
         "additionalProperties": false
       },
       "MembersPut": {
+        "required": [
+          "email",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
           },
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "contactNumber": {
+            "pattern": "^(09|\\+639)\\d{9}$",
             "type": "string",
             "nullable": true
           },
           "address": {
+            "maxLength": 250,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }

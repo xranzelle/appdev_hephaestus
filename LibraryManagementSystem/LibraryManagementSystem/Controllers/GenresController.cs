@@ -29,6 +29,7 @@ namespace LibraryManagementSystem.Controllers
             var genres = await _context.Genres.OrderBy(g => g.GenreId).ToListAsync();
 
             var mappedGenres = _mapper.Map<List<GenresRead>>(genres);
+
             return Ok(mappedGenres);
         }
 
@@ -94,6 +95,7 @@ namespace LibraryManagementSystem.Controllers
         public async Task<ActionResult<IEnumerable<GenreBooksRead>>> GetBooksByGenre(int genreId)
         {
             var genreExists = await _context.Genres.AnyAsync(g => g.GenreId == genreId);
+
             if (!genreExists)
             {
                 return NotFound($"Genre with ID {genreId} not found.");
@@ -105,7 +107,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 return NotFound($"No books found under Genre ID {genreId}.");
             }
-                
+
             var mappedBooks = _mapper.Map<List<GenreBooksRead>>(books);
             return Ok(mappedBooks);
         }

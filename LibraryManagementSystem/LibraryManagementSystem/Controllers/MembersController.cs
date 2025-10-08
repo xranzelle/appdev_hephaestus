@@ -29,6 +29,7 @@ namespace LibraryManagementSystem.Controllers
             var members = await _context.Members.OrderBy(m => m.MemberId).ToListAsync();
 
             var mappedMembers = _mapper.Map<List<MembersRead>>(members);
+
             return Ok(mappedMembers);
         }
 

@@ -26,11 +26,10 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BooksRead>>> GetBooks()
         {
-            var books = await _context.Books
-                .OrderBy(b => b.BookId)
-                .ToListAsync();
+            var books = await _context.Books.OrderBy(b => b.BookId).ToListAsync();
 
             var mappedBooks = _mapper.Map<List<BooksRead>>(books);
+
             return Ok(mappedBooks);
         }
 
@@ -59,20 +58,17 @@ namespace LibraryManagementSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBook(int id, BooksPut bookDTO)
         {
-            // Check if the book exists
             var book = await _context.Books.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
             }
 
-            // Map updated values to the existing entity
             _mapper.Map(bookDTO, book);
 
-            // Save changes
             await _context.SaveChangesAsync();
 
-            // Return 204 No Content (REST best practice for PUT)
             return NoContent();
         }
 
@@ -118,20 +114,15 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet("author/{authorId}")]
         public async Task<ActionResult<IEnumerable<BooksByAuthorIDRead>>> GetBooksByAuthorId(int authorId)
         {
-            // Check if author exists
             var authorExists = await _context.Authors.AnyAsync(a => a.AuthorId == authorId);
+
             if (!authorExists)
             {
                 return NotFound($"Author with ID {authorId} not found.");
             }
 
-            // Get books by author
-            var books = await _context.Books
-                .Where(b => b.AuthorId == authorId)
-                .OrderBy(b => b.Title)
-                .ToListAsync();
+            var books = await _context.Books.Where(b => b.AuthorId == authorId).OrderBy(b => b.Title).ToListAsync();
 
-            // Map to DTO
             var mappedBooks = _mapper.Map<List<BooksByAuthorIDRead>>(books);
 
             if (!mappedBooks.Any())

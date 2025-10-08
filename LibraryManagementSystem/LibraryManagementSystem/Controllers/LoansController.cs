@@ -29,6 +29,7 @@ namespace LibraryManagementSystem.Controllers
             var loans = await _context.Loans.OrderBy(l => l.LoanId).ToListAsync();
 
             var mappedLoans = _mapper.Map<List<LoansRead>>(loans);
+
             return Ok(mappedLoans);
         }
 
@@ -100,18 +101,19 @@ namespace LibraryManagementSystem.Controllers
         public async Task<ActionResult<IEnumerable<LoansByStatusIDRead>>> GetLoansByStatus(int statusId)
         {
             var statusExists = await _context.LoanStatuses.AnyAsync(s => s.StatusId == statusId);
+
             if (!statusExists)
             {
                 return NotFound($"Status ID {statusId} not found.");
             }
-                
+
             var loans = await _context.Loans.Where(l => l.StatusId == statusId).OrderBy(l => l.LoanDate).ToListAsync();
 
             if (!loans.Any())
             {
                 return NotFound($"No loans found with Status ID {statusId}.");
             }
-                
+
             var mappedLoans = _mapper.Map<List<LoansByStatusIDRead>>(loans);
             return Ok(mappedLoans);
         }
@@ -126,11 +128,12 @@ namespace LibraryManagementSystem.Controllers
         {
             // Check if member exists
             var memberExists = await _context.Members.AnyAsync(m => m.MemberId == memberId);
+
             if (!memberExists)
             {
                 return NotFound($"Member with ID {memberId} not found.");
             }
-                
+
             var loans = await _context.Loans.Where(l => l.MemberId == memberId).OrderByDescending(l => l.LoanDate).ToListAsync();
 
             if (!loans.Any())
