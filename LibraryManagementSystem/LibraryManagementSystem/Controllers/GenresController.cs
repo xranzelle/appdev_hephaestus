@@ -19,31 +19,41 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
+        // ============================================================
         // GET: api/Genres
+        // Description: Returns a list of all genres.
+        // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenresRead>>> GetGenres()
         {
-            var genres = await _context.Genres.ToListAsync();
+            var genres = await _context.Genres.OrderBy(g => g.GenreId).ToListAsync();
 
-            var genresDto = _mapper.Map<List<GenresRead>>(genres);
-            return Ok(genresDto);
+            var mappedGenres = _mapper.Map<List<GenresRead>>(genres);
+            return Ok(mappedGenres);
         }
 
-        // GET: api/Genres/5
+        // ============================================================
+        // GET: api/Genres/{id}
+        // Description: Returns a specific genre by ID.
+        // ============================================================
         [HttpGet("{id}")]
         public async Task<ActionResult<GenresReadByID>> GetGenre(int id)
         {
-            var genre = await _context.Genres.FirstOrDefaultAsync(g => g.GenreId == id);
+            var genre = await _context.Genres.FindAsync(id);
 
             if (genre == null)
             {
                 return NotFound();
             }
 
-            var genreDto = _mapper.Map<GenresReadByID>(genre);
-            return Ok(genreDto);
+            var mappedGenre = _mapper.Map<GenresReadByID>(genre);
+            return Ok(mappedGenre);
         }
 
+        // ============================================================
+        // PUT: api/Genres/{id}
+        // Description: Updates an existing genre’s details.
+        // ============================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGenre(int id, GenresPut genreDto)
         {
@@ -55,13 +65,15 @@ namespace LibraryManagementSystem.Controllers
             }
 
             _mapper.Map(genreDto, genre);
-
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
+        // ============================================================
         // POST: api/Genres
+        // Description: Creates a new genre record.
+        // ============================================================
         [HttpPost]
         public async Task<ActionResult<GenresRead>> PostGenre(GenresPost genreDto)
         {
@@ -70,15 +82,19 @@ namespace LibraryManagementSystem.Controllers
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            var genreReadDto = _mapper.Map<GenresRead>(genre);
-            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, genreReadDto);
+            var mappedGenre = _mapper.Map<GenresRead>(genre);
+            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, mappedGenre);
         }
 
-        // DELETE: api/Genres/5
+        // ============================================================
+        // DELETE: api/Genres/{id}
+        // Description: Deletes a genre record by ID.
+        // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGenre(int id)
         {
             var genre = await _context.Genres.FindAsync(id);
+
             if (genre == null)
             {
                 return NotFound();

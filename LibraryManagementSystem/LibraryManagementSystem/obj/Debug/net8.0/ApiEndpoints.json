@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.ArchiveMembersDTO.ArchivedMembersRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LibraryManagementSystem.DTO.ArchivedMembersDTO.ArchivedMembersRead, LibraryManagementSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -21,7 +21,7 @@
   },
   {
     "ContainingType": "LibraryManagementSystem.Controllers.ArchivedMembersController",
-    "Method": "TryLang",
+    "Method": "GetArchivedMember",
     "RelativePath": "api/ArchivedMembers/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -35,7 +35,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.ArchiveMembersDTO.ArchivedMembersRead",
+        "Type": "LibraryManagementSystem.DTO.ArchivedMembersDTO.ArchivedMembersReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -232,7 +232,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksRead",
+        "Type": "LibraryManagementSystem.DTO.BooksDTO.BooksReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -668,7 +668,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersRead",
+        "Type": "LibraryManagementSystem.DTO.MembersDTO.MembersReadByID",
         "MediaTypes": [
           "text/plain",
           "application/json",

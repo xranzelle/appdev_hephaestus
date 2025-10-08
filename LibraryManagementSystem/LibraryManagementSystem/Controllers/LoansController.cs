@@ -19,31 +19,42 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
-        // This method retrieves all loans from the database.
+        // ============================================================
+        // GET: api/Loans
+        // Description: Returns a list of all loans.
+        // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoansRead>>> GetLoans()
         {
-            var loans = await _context.Loans.ToListAsync();
-            var loansDto = _mapper.Map<List<LoansRead>>(loans);
-            return Ok(loansDto);
+            var loans = await _context.Loans.OrderBy(l => l.LoanId).ToListAsync();
+
+            var mappedLoans = _mapper.Map<List<LoansRead>>(loans);
+            return Ok(mappedLoans);
         }
 
-        // This method retrieves a specific loan by its ID.
+        // ============================================================
+        // GET: api/Loans/{id}
+        // Description: Returns a specific loan by ID.
+        // ============================================================
         [HttpGet("{id}")]
         public async Task<ActionResult<LoansReadByID>> GetLoan(int id)
         {
-            var loan = await _context.Loans.FirstOrDefaultAsync(l => l.LoanId == id);
+            var loan = await _context.Loans.FindAsync(id);
 
             if (loan == null)
             {
                 return NotFound();
             }
 
-            var loansDto = _mapper.Map<LoansReadByID>(loan);
-            return Ok(loansDto);
+            var mappedLoan = _mapper.Map<LoansReadByID>(loan);
+            return Ok(mappedLoan);
         }
 
-        // This method updates an existing loan based on the provided ID and loan DTO.
+        // ============================================================
+        // PUT: api/Loans/{id}
+        // Description: Updates an existing loan. Automatically sets
+        // ReturnDate when StatusId == 2 (returned), otherwise null.
+        // ============================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLoan(int id, LoansPut loanDto)
         {
@@ -56,20 +67,18 @@ namespace LibraryManagementSystem.Controllers
 
             _mapper.Map(loanDto, loan);
 
-            if (loan.StatusId == 2)
-            {
-                loan.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
-            }
-            else
-            {
-                loan.ReturnDate = null;
-            }
+            // Automatically handle return date logic
+            loan.ReturnDate = (loan.StatusId == 2) ? DateOnly.FromDateTime(DateTime.Now) : null;
 
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
-        // This method creates a new loan based on the provided loan DTO.
+        // ============================================================
+        // POST: api/Loans
+        // Description: Creates a new loan record.
+        // ============================================================
         [HttpPost]
         public async Task<ActionResult<LoansRead>> PostLoan(LoansPost loanDto)
         {
@@ -78,15 +87,19 @@ namespace LibraryManagementSystem.Controllers
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
 
-            var loansDto = _mapper.Map<LoansRead>(loan);
-            return CreatedAtAction("GetLoan", new { id = loan.LoanId }, loansDto);
+            var mappedLoan = _mapper.Map<LoansRead>(loan);
+            return CreatedAtAction(nameof(GetLoan), new { id = loan.LoanId }, mappedLoan);
         }
 
-        // This method deletes a loan by its ID.
+        // ============================================================
+        // DELETE: api/Loans/{id}
+        // Description: Deletes a loan record by ID.
+        // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoan(int id)
         {
             var loan = await _context.Loans.FindAsync(id);
+
             if (loan == null)
             {
                 return NotFound();

@@ -1,4 +1,4 @@
-namespace LibraryManagementSystem.DTO.MembersDTO
+﻿namespace LibraryManagementSystem.DTO.MembersDTO
 {
     public class MembersReadByID
     {
@@ -10,6 +10,6 @@ namespace LibraryManagementSystem.DTO.MembersDTO
 
         public string? Address { get; set; }
 
-        public DateOnly? MembershipDate { get; set; }
+        public DateOnly MembershipDate { get; set; }
     }
 }

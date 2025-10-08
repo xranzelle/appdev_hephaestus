@@ -65,17 +65,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ArchivedMembersRead"
+                  "$ref": "#/components/schemas/ArchivedMembersReadByID"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ArchivedMembersRead"
+                  "$ref": "#/components/schemas/ArchivedMembersReadByID"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ArchivedMembersRead"
+                  "$ref": "#/components/schemas/ArchivedMembersReadByID"
                 }
               }
             }
@@ -395,17 +395,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooksRead"
+                  "$ref": "#/components/schemas/BooksReadByID"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooksRead"
+                  "$ref": "#/components/schemas/BooksReadByID"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooksRead"
+                  "$ref": "#/components/schemas/BooksReadByID"
                 }
               }
             }
@@ -1135,17 +1135,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MembersRead"
+                  "$ref": "#/components/schemas/MembersReadByID"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MembersRead"
+                  "$ref": "#/components/schemas/MembersReadByID"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MembersRead"
+                  "$ref": "#/components/schemas/MembersReadByID"
                 }
               }
             }
@@ -1218,14 +1218,15 @@
   "components": {
     "schemas": {
       "ArchivedMembersRead": {
-        "required": [
-          "name"
-        ],
         "type": "object",
         "properties": {
+          "memberId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "name": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "email": {
             "type": "string",
@@ -1239,31 +1240,20 @@
         },
         "additionalProperties": false
       },
-      "Author": {
+      "ArchivedMembersReadByID": {
         "type": "object",
         "properties": {
-          "authorId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "name": {
             "type": "string",
             "nullable": true
           },
-          "nationality": {
+          "email": {
             "type": "string",
             "nullable": true
           },
-          "birthdate": {
+          "deletedAt": {
             "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "books": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Book"
-            },
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -1339,50 +1329,6 @@
         },
         "additionalProperties": false
       },
-      "Book": {
-        "type": "object",
-        "properties": {
-          "bookId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "authorId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "genreId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "publishedYear": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isbn": {
-            "type": "string",
-            "nullable": true
-          },
-          "author": {
-            "$ref": "#/components/schemas/Author"
-          },
-          "genre": {
-            "$ref": "#/components/schemas/Genre"
-          },
-          "loans": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Loan"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "BooksPost": {
         "type": "object",
         "properties": {
@@ -1448,11 +1394,13 @@
             "type": "string",
             "nullable": true
           },
-          "author": {
-            "$ref": "#/components/schemas/Author"
+          "authorId": {
+            "type": "integer",
+            "format": "int32"
           },
-          "genre": {
-            "$ref": "#/components/schemas/Genre"
+          "genreId": {
+            "type": "integer",
+            "format": "int32"
           },
           "isbn": {
             "type": "string",
@@ -1466,22 +1414,28 @@
         },
         "additionalProperties": false
       },
-      "Genre": {
+      "BooksReadByID": {
         "type": "object",
         "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "genreId": {
             "type": "integer",
             "format": "int32"
           },
-          "genreName": {
+          "isbn": {
             "type": "string",
             "nullable": true
           },
-          "books": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Book"
-            },
+          "publishedYear": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
@@ -1526,71 +1480,6 @@
         "properties": {
           "genreName": {
             "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Loan": {
-        "type": "object",
-        "properties": {
-          "loanId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "bookId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "memberId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "loanDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "dueDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "returnDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "statusId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "book": {
-            "$ref": "#/components/schemas/Book"
-          },
-          "member": {
-            "$ref": "#/components/schemas/Member"
-          },
-          "status": {
-            "$ref": "#/components/schemas/LoanStatus"
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoanStatus": {
-        "type": "object",
-        "properties": {
-          "statusId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "statusName": {
-            "type": "string",
-            "nullable": true
-          },
-          "loans": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Loan"
-            },
             "nullable": true
           }
         },
@@ -1738,43 +1627,6 @@
         },
         "additionalProperties": false
       },
-      "Member": {
-        "type": "object",
-        "properties": {
-          "memberId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "contactNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "membershipDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "loans": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Loan"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "MembersPost": {
         "type": "object",
         "properties": {
@@ -1830,6 +1682,32 @@
             "type": "integer",
             "format": "int32"
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "membershipDate": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MembersReadByID": {
+        "type": "object",
+        "properties": {
           "name": {
             "type": "string",
             "nullable": true

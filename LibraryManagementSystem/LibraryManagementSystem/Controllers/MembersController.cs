@@ -19,19 +19,25 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
+        // ============================================================
         // GET: api/Members
+        // Description: Returns a list of all members, ordered by MemberId.
+        // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MembersRead>>> GetMembers()
         {
             var members = await _context.Members.OrderBy(m => m.MemberId).ToListAsync();
-            var mappedMembers = _mapper.Map<List<MembersRead>>(members);
 
+            var mappedMembers = _mapper.Map<List<MembersRead>>(members);
             return Ok(mappedMembers);
         }
 
-        // GET: api/Members/5
+        // ============================================================
+        // GET: api/Members/{id}
+        // Description: Returns a specific member by ID.
+        // ============================================================
         [HttpGet("{id}")]
-        public async Task<ActionResult<MembersRead>> GetMember(int id)
+        public async Task<ActionResult<MembersReadByID>> GetMember(int id)
         {
             var member = await _context.Members.FindAsync(id);
 
@@ -40,11 +46,14 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var mappedMember = _mapper.Map<MembersRead>(member);
+            var mappedMember = _mapper.Map<MembersReadByID>(member);
             return Ok(mappedMember);
         }
 
-        // PUT: api/Members/5
+        // ============================================================
+        // PUT: api/Members/{id}
+        // Description: Updates an existing member’s information.
+        // ============================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMember(int id, MembersPut memberDto)
         {
@@ -55,15 +64,16 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            // Update entity with mapped DTO fields
             _mapper.Map(memberDto, member);
             await _context.SaveChangesAsync();
 
-            var updatedMember = _mapper.Map<MembersRead>(member);
-            return Ok(updatedMember); // Return updated version
+            return NoContent();
         }
 
+        // ============================================================
         // POST: api/Members
+        // Description: Creates a new member record.
+        // ============================================================
         [HttpPost]
         public async Task<ActionResult<MembersRead>> PostMember(MembersPost memberDto)
         {
@@ -73,15 +83,18 @@ namespace LibraryManagementSystem.Controllers
             await _context.SaveChangesAsync();
 
             var mappedMember = _mapper.Map<MembersRead>(member);
-
             return CreatedAtAction(nameof(GetMember), new { id = member.MemberId }, mappedMember);
         }
 
-        // DELETE: api/Members/5
+        // ============================================================
+        // DELETE: api/Members/{id}
+        // Description: Deletes a member record by ID.
+        // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMember(int id)
         {
             var member = await _context.Members.FindAsync(id);
+
             if (member == null)
             {
                 return NotFound();

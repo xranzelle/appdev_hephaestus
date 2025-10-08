@@ -1,9 +1,7 @@
 ﻿namespace LibraryManagementSystem.DTO.ArchivedMembersDTO
 {
-    public class ArchivedMembersRead
+    public class ArchivedMembersReadByID
     {
-        public int MemberId { get; set; }
-
         public string? Name { get; set; }
 
         public string? Email { get; set; }

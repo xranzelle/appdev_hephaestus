@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
-using AutoMapper;
+﻿using AutoMapper;
 using LibraryManagementSystem.DTO.AuthorsDTO;
+using LibraryManagementSystem.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -19,22 +19,29 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
+        // ============================================================
         // GET: api/Authors
+        // Description: Returns a list of all authors, ordered by AuthorId.
+        // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorsRead>>> GetAuthors()
         {
-            var author = await _context.Authors.OrderBy(a => a.AuthorId).ToListAsync();
-            var mappedAuthor = _mapper.Map<List<AuthorsRead>>(author);
+            var authors = await _context.Authors.OrderBy(a => a.AuthorId).ToListAsync();
 
-            return Ok(mappedAuthor);
+            var mappedAuthors = _mapper.Map<List<AuthorsRead>>(authors);
+
+            return Ok(mappedAuthors);
         }
 
-        // GET: api/Authors/5
+        // ============================================================
+        // GET: api/Authors/{id}
+        // Description: Returns a specific author by ID.
+        // ============================================================
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorsReadByID>> GetAuthor(int id)
         {
             var author = await _context.Authors.FindAsync(id);
-            
+
             if (author == null)
             {
                 return NotFound();
@@ -44,27 +51,33 @@ namespace LibraryManagementSystem.Controllers
             return Ok(mappedAuthor);
         }
 
-        // PUT: api/Authors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // ============================================================
+        // PUT: api/Authors/{id}
+        // Description: Updates an existing author’s details.
+        // ============================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, AuthorsPut authorDTO)
         {
+            // Find existing author
             var author = await _context.Authors.FindAsync(id);
-
             if (author == null)
             {
                 return NotFound();
             }
 
-            var mappedAuthor = _mapper.Map(authorDTO, author);
+            // Map the updated values
+            _mapper.Map(authorDTO, author);
 
+            // Save changes
             await _context.SaveChangesAsync();
 
-            return Ok(mappedAuthor);
+            return NoContent();
         }
 
+        // ============================================================
         // POST: api/Authors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // Description: Creates a new author record in the database.
+        // ============================================================
         [HttpPost]
         public async Task<ActionResult<AuthorsPost>> PostAuthor(AuthorsPost authorDTO)
         {
@@ -73,14 +86,19 @@ namespace LibraryManagementSystem.Controllers
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAuthor", new { id = author.AuthorId }, author);
+            // Returns 201 Created with location of the new resource
+            return CreatedAtAction(nameof(GetAuthor), new { id = author.AuthorId }, author);
         }
 
-        // DELETE: api/Authors/5
+        // ============================================================
+        // DELETE: api/Authors/{id}
+        // Description: Deletes an author from the database by ID.
+        // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
             var author = await _context.Authors.FindAsync(id);
+
             if (author == null)
             {
                 return NotFound();

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryManagementSystem.DTO.ArchiveMembersDTO;
+using LibraryManagementSystem.DTO.ArchivedMembersDTO;
 using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Profiles
@@ -9,6 +9,7 @@ namespace LibraryManagementSystem.Profiles
         public ArchivedMembersProfile()
         {
             CreateMap<ArchivedMember, ArchivedMembersRead>();
+            CreateMap<ArchivedMember, ArchivedMembersReadByID>();
         }
     }
 }

@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Models;
 using AutoMapper;
 using LibraryManagementSystem.DTO.BooksDTO;
+using LibraryManagementSystem.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -19,19 +19,27 @@ namespace LibraryManagementSystem.Controllers
             _mapper = mapper;
         }
 
+        // ============================================================
         // GET: api/Books
+        // Description: Returns a list of all books, ordered by BookId.
+        // ============================================================
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BooksRead>>> GetBooks()
         {
-            var books = await _context.Books.OrderBy(b => b.BookId).ToListAsync();
-            var mappedBooks = _mapper.Map<List<BooksRead>>(books);
+            var books = await _context.Books
+                .OrderBy(b => b.BookId)
+                .ToListAsync();
 
+            var mappedBooks = _mapper.Map<List<BooksRead>>(books);
             return Ok(mappedBooks);
         }
 
-        // GET: api/Books/5
+        // ============================================================
+        // GET: api/Books/{id}
+        // Description: Returns a specific book by ID.
+        // ============================================================
         [HttpGet("{id}")]
-        public async Task<ActionResult<BooksReadByID>> GetBooks(int id)
+        public async Task<ActionResult<BooksReadByID>> GetBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
 
@@ -44,40 +52,34 @@ namespace LibraryManagementSystem.Controllers
             return Ok(mappedBook);
         }
 
-        // PUT: api/Books/5
+        // ============================================================
+        // PUT: api/Books/{id}
+        // Description: Updates an existing book’s details.
+        // ============================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBook(int id, BooksPut bookDTO)
         {
+            // Check if the book exists
             var book = await _context.Books.FindAsync(id);
-
             if (book == null)
             {
                 return NotFound();
             }
 
+            // Map updated values to the existing entity
             _mapper.Map(bookDTO, book);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var exists = await _context.Books.AnyAsync(e => e.BookId == id);
-                if (!exists)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            // Save changes
+            await _context.SaveChangesAsync();
 
-            return Ok(book);
+            // Return 204 No Content (REST best practice for PUT)
+            return NoContent();
         }
 
+        // ============================================================
         // POST: api/Books
+        // Description: Creates a new book record in the database.
+        // ============================================================
         [HttpPost]
         public async Task<ActionResult<BooksRead>> PostBook(BooksPost bookDTO)
         {
@@ -86,14 +88,18 @@ namespace LibraryManagementSystem.Controllers
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBook", new { id = book.BookId }, book);
+            return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
         }
 
-        // DELETE: api/Books/5
+        // ============================================================
+        // DELETE: api/Books/{id}
+        // Description: Deletes a book record by ID.
+        // ============================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
