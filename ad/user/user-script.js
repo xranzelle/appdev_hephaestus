@@ -12,6 +12,24 @@ const retakeBtn = document.getElementById("retakeBtn");
 const finishBtn = document.getElementById("finishBtn");
 
 let surveyData = [];
+let startTime = null;
+
+// time formatter seconds, hours
+function formatTime(seconds) {
+    if (!seconds || seconds === 0) return "—";
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} min${minutes !== 1 ? 's' : ''}`;
+    } else if (minutes > 0) {
+        return `${minutes} min${minutes !== 1 ? 's' : ''} ${secs} sec${secs !== 1 ? 's' : ''}`;
+    } else {
+        return `${secs} second${secs !== 1 ? 's' : ''}`;
+    }
+}
 
 (async function preloadSurvey() {
     try {
@@ -19,7 +37,7 @@ let surveyData = [];
         const data = await res.json();
         if (data.success && data.categories) {
             surveyData = data.categories;
-            updateEstimatedTime();
+            updateEstimatedTime(data);
         }
     } catch (err) {
         console.error(err);
@@ -29,6 +47,7 @@ let surveyData = [];
 startBtn.addEventListener("click", async () => {
     welcome.style.display = "none";
     surveyWrap.style.display = "block";
+    startTime = Date.now();
     await loadSurvey();
 });
 
@@ -56,7 +75,7 @@ async function loadSurvey() {
         if (data.success && data.categories) {
             surveyData = data.categories;
             renderSurvey(surveyData);
-            updateEstimatedTime();
+            updateEstimatedTime(data);
         } else {
             form.innerHTML = "<p>Failed to load survey questions.</p>";
         }
@@ -169,7 +188,7 @@ submitBtn.addEventListener("click", async () => {
         const checked = form.querySelector(`input[name="${name}"]:checked`);
         if (!checked) missing.push(name);
     });
-    
+
     if (missing.length > 0) { alert("Please answer all questions before submitting."); return; }
 
     const payload = {
@@ -183,6 +202,12 @@ submitBtn.addEventListener("click", async () => {
     };
 
     try {
+        // ending time to calculate
+        let endTime = Date.now();
+        let timeSpentSeconds = startTime ? Math.floor((endTime - startTime) / 1000) : 0;  // null check cause def value is null
+
+        payload.answer_time = timeSpentSeconds;
+
         const res = await fetch(`${apiBase}?action=submit_survey`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -243,21 +268,16 @@ function showResults(payload) {
     document.getElementById("resultText").textContent = `Your overall satisfaction score is ${overall}/5. ${text}`;
 }
 
-function updateEstimatedTime() {
-    if (!surveyData || surveyData.length === 0) return;
-
-    // Count total questions
-    const totalQuestions = surveyData.reduce((sum, cat) => sum + cat.questions.length, 0);
-
-    // Estimate: 30 seconds per question
-    const secondsPerQuestion = 30;
-    const totalSeconds = totalQuestions * secondsPerQuestion;
-    const minutes = Math.ceil(totalSeconds / 60);
-
-    // Update the div
+function updateEstimatedTime(data) {
     const estDiv = document.getElementById("estimatedTime");
-    if (estDiv) {
-        estDiv.textContent = `Estimated time: ${minutes} minute${minutes > 1 ? 's' : ''}`;
+    if (!estDiv) return;
+
+    // If average_time exists, display it in a formatted way
+    if (data && data.average_time !== undefined && data.average_time !== null) {
+        const formattedTime = formatTime(data.average_time);
+        estDiv.textContent = `Estimated time: ${formattedTime}`;
+    } else {
+        estDiv.textContent = `Estimated time: —`;
     }
 }
 
@@ -268,4 +288,3 @@ document.addEventListener("input", (e) => {
         e.target.nextElementSibling.style.setProperty("--fill-color", color);
     }
 });
-

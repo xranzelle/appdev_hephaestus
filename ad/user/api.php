@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // ===== DATABASE CONNECTION =====
-$host = "srv613.hstgr.io";
-$dbname = "u412048963_survey_db";
-$user = "u412048963_hephaestus";
-$pass = "Hepastu5!";
+    $host = "localhost";
+    $dbname = "survey_db";
+    $user = "root";
+    $pass = "";
 
 try {
     // ✅ Create PDO connection
@@ -47,16 +47,33 @@ $input = json_decode(file_get_contents('php://input'), true);
 // ===== FETCH SURVEY STRUCTURE =====
 if ($action === 'get_survey') {
     try {
+        // Fetch categories
         $categories = $pdo->query("SELECT * FROM categories ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
 
+        // Append questions per category
         foreach ($categories as &$cat) {
             $q = $pdo->prepare("SELECT * FROM questions WHERE category_id = ? ORDER BY id ASC");
             $q->execute([$cat['id']]);
             $cat['questions'] = $q->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        echo json_encode(['success' => true, 'categories' => $categories]);
+        // Fetch average answer time (from 'responses' table)
+        $avgStmt = $pdo->query("SELECT AVG(answer_time) AS avg_time FROM responses");
+        $avgRow = $avgStmt->fetch(PDO::FETCH_ASSOC);
+
+        // Round to seconds, null if no data
+        $average_time = ($avgRow && $avgRow['avg_time'] !== null)
+            ? round($avgRow['avg_time'])
+            : null;
+
+        // FINAL RESPONSE
+        echo json_encode([
+            'success' => true,
+            'categories' => $categories,
+            'average_time' => $average_time
+        ]);
         exit;
+
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         exit;
@@ -75,15 +92,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
             exit;
         }
 
-        // 1️⃣ Insert new response
+        // Insert new response
         $stmt = $pdo->prepare("INSERT INTO responses (submitted_at) VALUES (NOW())");
         $stmt->execute();
         $response_id = $pdo->lastInsertId();
 
+        $answer_time = isset($input['answer_time']) ? intval($input['answer_time']) : 0;
+
+        $pdo->prepare("UPDATE responses SET answer_time = ? WHERE id = ?")
+            ->execute([$answer_time, $response_id]);
+
         $total = 0;
         $count = 0;
 
-        // 2️⃣ Insert answers
+        // Insert answers
         $ansStmt = $pdo->prepare("INSERT INTO response_answers (response_id, question_id, rating_value) VALUES (?, ?, ?)");
 
         foreach ($input['categories'] as $cat) {
@@ -96,9 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
             }
         }
 
-        // 3️⃣ Compute average
+        // Compute average
         $overall = $count ? $total / $count : 0;
         $pdo->prepare("UPDATE responses SET overall_score = ? WHERE id = ?")->execute([$overall, $response_id]);
+
+        $avgStmt = $pdo->query("SELECT AVG(answer_time) AS avg_time FROM responses");
+        $avgRow = $avgStmt->fetch(PDO::FETCH_ASSOC);
+        $average_time = round($avgRow['avg_time'], 2);
 
         echo json_encode(['success' => true, 'response_id' => $response_id, 'overall' => $overall]);
         exit;
@@ -117,7 +143,11 @@ if ($action === 'get_responses') {
             ORDER BY r.submitted_at DESC
         ")->fetchAll(PDO::FETCH_ASSOC);
 
-        echo json_encode(['success' => true, 'data' => $rows]);
+        echo json_encode([
+            'success' => true,
+            'categories' => $rows,
+            'average_time' => $avgTime
+        ]);
         exit;
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
