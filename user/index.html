@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Customer Satisfaction Survey</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="card">
+            <div class="title">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <rect width="24" height="24" rx="6" fill="#2f6fb2" />
+                    <path d="M7 12h10M7 8h10M7 16h7" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <div>
+                    <h1>Customer Satisfaction Survey</h1>
+                    <p class="lead">Please share your feedback. This survey helps us improve our services.</p>
+                </div>
+            </div>
+            <div style="text-align:right">
+                <div id="estimatedTime">
+                    <span id="avgTime">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <section id="welcome" class="card welcome">
+            <h2 class="momo">WELCOME</h2>
+            <p class="lead">Thank you for taking the time to complete our survey.</p>
+            <button id="startBtn" class="start-btn">Start Survey</button>
+        </section>
+
+        <section id="surveyWrap" class="card survey-wrap">
+            <form id="surveyForm"></form>
+            <div class="actions">
+                <button id="clearBtn" class="btn secondary" type="button">Clear Answers</button>
+                <button id="submitBtn" class="btn primary" type="button">Submit Survey</button>
+            </div>
+        </section>
+
+        <section id="results" class="card results">
+            <h2>Survey Results</h2>
+            <div class="summary">
+                <div class="score-box">
+                    <div style="font-size:20px;color:var(--muted)">Overall Score</div>
+                    <div id="overallScore" class="score-large">—</div>
+                    <div style="font-size:20px;color:var(--muted)">out of 5</div>
+                </div>
+                <div class="analysis">
+                    <h3>Summary</h3>
+                    <p id="resultText">—</p>
+                    <ul id="categoryList" style="margin:6px 0 0 18px;color:var(--muted); font-weight: 200;"></ul>
+                    <div style="margin-top:14px;display:flex;gap:10px">
+                        <button id="retakeBtn" class="btn secondary" type="button">Retake Survey</button>
+                        <button id="finishBtn" class="btn primary" type="button">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="user-script.js" defer></script>
+</body>
+
+</html>
