@@ -94,8 +94,13 @@ p.lead {
     color: white;
 }
 
+.modeContainer {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 .switchModes {
-	margin-left: 120px;
+	/*margin-left: 120px;*/
 	height: 50px;
 	width: 50px;
 	padding: 0;
@@ -444,6 +449,26 @@ p.lead {
     .radio-row {
         gap: 20px;
     }
+	
+	.switchModes {
+		height: 40px;
+		width: 40px;
+		justify-content: center;
+		align-items:center;
+		cursor: pointer;
+	}
+	
+	.switchModes img{
+		height:30px;
+	}
+
+	.switchModes img:hover{
+		height:40px;
+	}
+	
+	.modeContainer {
+		margin-left: auto;
+	}
 }
 
 @media (max-width: 380px) {
@@ -547,6 +572,26 @@ p.lead {
     .lead {
         padding-top: 10px;
     }
+	
+	.switchModes {
+		height: 35px;
+		width: 35px;
+		justify-content: center;
+		align-items:center;
+		cursor: pointer;
+	}
+	
+	.switchModes img{
+		height:25px;
+	}
+
+	.switchModes img:hover{
+		height:30px;
+	}
+	
+	.modeContainer {
+		margin-left: auto;
+	}
 }
 
 @media (max-width: 460px) {
