@@ -215,19 +215,28 @@ p.lead {
 }
 
 /* Sizes */
+.size-extra-large .radio-label {
+    width: 70px; 
+    height: 70px; 
+    font-size: 10px; 
+}
+
 .size-large .radio-label {
-    width: 60px;
-    height: 60px;
+    width: 70px; 
+    height: 70px; 
+    font-size: 10px;
 }
 
 .size-medium .radio-label {
-    width: 50px;
-    height: 50px;
+    width: 70px; 
+    height: 70px; 
+    font-size: 10px;
 }
 
 .size-small .radio-label {
-    width: 40px;
-    height: 40px;
+    width: 70px; 
+    height: 70px; 
+    font-size: 10px;
 }
 
 /* Hover and checked */
