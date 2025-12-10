@@ -280,3 +280,26 @@ document.addEventListener("input", e => {
         );
     }
 });
+
+/* ===============================
+   LIGHT/DARK SWITCH
+   =============================== */
+	const link = document.getElementById("themeStylesheet");
+    const switchBtn = document.getElementById("switchButton");
+
+    // Checks if a "theme" was saved
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      link.href = savedTheme;
+    }
+
+    // Toggle theme and save choice
+    switchBtn.addEventListener("click", function() {
+      if (link.href.includes("user.css")) {
+        link.href = "userdark.css";
+        localStorage.setItem("theme", "userdark.css");
+      } else {
+        link.href = "user.css";
+        localStorage.setItem("theme", "user.css");
+      }
+    });
