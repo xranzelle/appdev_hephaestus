@@ -70,8 +70,10 @@ async function loadSurvey() {
 function renderSurvey(categories) {
     form.innerHTML = "";
 
-    const isSmallScreen = window.matchMedia("(max-width: 809px)").matches;
+    // Detect if small screen (≤ 768px)
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
 
+    // Define label sets
     const labels = isSmallScreen
         ? ["SD", "D", "N", "A", "SA"]
         : ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
@@ -153,6 +155,7 @@ document.addEventListener("change", (e) => {
     }
 });
 
+
 // Submit survey
 submitBtn.addEventListener("click", async () => {
     const allQ = form.querySelectorAll(".question-block");
@@ -166,7 +169,7 @@ submitBtn.addEventListener("click", async () => {
         const checked = form.querySelector(`input[name="${name}"]:checked`);
         if (!checked) missing.push(name);
     });
-
+    
     if (missing.length > 0) { alert("Please answer all questions before submitting."); return; }
 
     const payload = {
@@ -232,25 +235,12 @@ function showResults(payload) {
 
     // Summary text
     let text = "";
-
-    if (overall >= 4.5) {
-        text = "This reflects an excellent level of satisfaction. Overall, the experience exceeded expectations.";
-    }
-    else if (overall >= 3.5) {
-        text = "This indicates a high level of satisfaction, with most aspects meeting user expectations.";
-    }
-    else if (overall >= 2.5) {
-        text = "This suggests an average level of satisfaction. Some areas may need improvement.";
-    }
-    else if (overall >= 1.5) {
-        text = "This indicates a low level of satisfaction. Several aspects may require attention.";
-    }
-    else {
-        text = "This reflects very low satisfaction and highlights the need for significant improvement.";
-    }
+    if (overall >= 4.5) text = "Excellent satisfaction!";
+    else if (overall >= 3.5) text = "Good satisfaction.";
+    else if (overall >= 2.5) text = "Average satisfaction — consider addressing specific concerns.";
+    else text = "Low satisfaction. Needs improvement.";
 
     document.getElementById("resultText").textContent = `Your overall satisfaction score is ${overall}/5. ${text}`;
-
 }
 
 function updateEstimatedTime() {
@@ -259,8 +249,8 @@ function updateEstimatedTime() {
     // Count total questions
     const totalQuestions = surveyData.reduce((sum, cat) => sum + cat.questions.length, 0);
 
-    // Estimate: 20 seconds per question
-    const secondsPerQuestion = 20;
+    // Estimate: 30 seconds per question
+    const secondsPerQuestion = 30;
     const totalSeconds = totalQuestions * secondsPerQuestion;
     const minutes = Math.ceil(totalSeconds / 60);
 

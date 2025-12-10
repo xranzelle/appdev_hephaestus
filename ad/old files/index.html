@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Customer Satisfaction Survey</title>
     <link rel="stylesheet" href="user.css">
-    <link rel="icon" href="survey_logo.ico" type="image/x-icon">
 </head>
 
 <body>
     <div class="container">
         <header class="card">
             <div class="title">
-                <img src="survey_logo.png" alt="" style="width: auto; height: 40px;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <rect width="24" height="24" rx="6" fill="#2f6fb2" />
+                    <path d="M7 12h10M7 8h10M7 16h7" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
                 <div>
                     <h1>Customer Satisfaction Survey</h1>
                     <p class="lead">Please share your feedback. This survey helps us improve our services.</p>
                 </div>
             </div>
-            <div id="estimatedTimeContainer">
+            <div style="text-align:right">
                 <div id="estimatedTime">
                     Estimated time: 0 minutes
                 </div>
@@ -52,7 +55,7 @@
                     <h3>Summary</h3>
                     <p id="resultText">—</p>
                     <ul id="categoryList" style="margin:6px 0 0 18px;color:var(--muted); font-weight: 200;"></ul>
-                    <div class="doneBtns">
+                    <div style="margin-top:14px;display:flex;gap:10px">
                         <button id="retakeBtn" class="btn secondary" type="button">Retake Survey</button>
                         <button id="finishBtn" class="btn primary" type="button">Finish</button>
                     </div>

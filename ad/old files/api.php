@@ -11,33 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // ===== DATABASE CONNECTION =====
-$host = "srv613.hstgr.io";
-$dbname = "u412048963_survey_db";
-$user = "u412048963_hephaestus";
-$pass = "Hepastu5!";
+$host = "localhost";
+$dbname = "survey_db";
+$user = "root";
+$pass = "";
 
 try {
-    // Create PDO connection
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $pass,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
-    );
-
-    // Force both PHP and MySQL to use Philippine time
-    date_default_timezone_set('Asia/Manila');
-    $pdo->exec("SET time_zone = '+08:00'");
-
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
-    // Handle connection or query errors safely
-    die(json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]));
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    exit;
 }
 
 // ===== HANDLE ACTION =====
@@ -96,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
             }
         }
 
-        // Compute average
+        // 3️⃣ Compute average
         $overall = $count ? $total / $count : 0;
         $pdo->prepare("UPDATE responses SET overall_score = ? WHERE id = ?")->execute([$overall, $response_id]);
 
