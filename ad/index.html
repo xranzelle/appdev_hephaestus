@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Customer Satisfaction Survey</title>
-	<link id="themeStylesheet" rel="stylesheet" href="user.css">
+    <link id="themeStylesheet" rel="stylesheet" href="user.css">
     <link rel="icon" href="survey_logo.ico" type="image/x-icon">
 </head>
 
@@ -24,19 +24,40 @@
                     Estimated time: 0 minutes
                 </div>
             </div>
-			<div class="modeContainer">
-				<button id="switchButton" class="switchModes">
-					<img src="img/dark_0.png" alt="Dark Off">
-					<img src="img/dark_1.png" alt="Dark On">
-				</button>
-			</div>
+            <div class="modeContainer">
+                <button id="switchButton" class="switchModes">
+                    <img src="img/dark_0.png" alt="Dark Off">
+                    <img src="img/dark_1.png" alt="Dark On">
+                </button>
+            </div>
         </header>
 
         <section id="welcome" class="card welcome">
             <h2 class="momo">WELCOME</h2>
-            <p class="lead">Thank you for taking the time to complete our survey.</p>
+
+            <div class="consent-mini">
+                <p class="title">Customer Satisfaction Survey – Consent</p>
+                <p class="sub">Data Privacy Act of 2012 (RA 10173)</p>
+
+                <p>
+                    Participation is voluntary and you may stop anytime. Your feedback will be used only to improve our
+                    services.
+                    All information will be kept confidential, securely stored, and never shared with third parties.
+                </p>
+
+                <p>
+                    Responses are anonymized and deleted when no longer needed. You may access or correct your data at
+                    any time.
+                </p>
+
+                <p class="final">
+                    By continuing, you agree to the collection and processing of your responses.
+                </p>
+            </div>
+
             <button id="startBtn" class="start-btn">Start Survey</button>
         </section>
+
 
         <section id="surveyWrap" class="card survey-wrap">
             <form id="surveyForm"></form>

@@ -688,3 +688,44 @@ p.lead {
         justify-content: center;
     }
 }
+
+/* Consent Container */
+.consent-mini {
+    background: #2f343d;
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Titles */
+.consent-mini .title {
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 3px;
+}
+
+.consent-mini .sub {
+    font-size: 12px;
+    color: #7a8699;
+    margin-bottom: 12px;
+}
+
+/* Text */
+.consent-mini p {
+    margin-bottom: 10px;
+}
+
+.consent-mini .final {
+    font-weight: 600;
+    color: #4a90e2;
+    text-align: center;
+    margin-top: 10px;
+}
