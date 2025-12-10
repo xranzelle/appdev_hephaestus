@@ -59,7 +59,7 @@ body {
 header.card {
     background-color: #0077b6;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: space-between;
 }
 
@@ -69,6 +69,8 @@ header .title {
     align-items: center;
     color: white;
 }
+
+
 
 h1 {
     font-size: 20px;
@@ -80,13 +82,25 @@ p.lead {
     font-size: 14px;
 }
 
+#estimatedTimeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #estimatedTime {
+    display: flex;
     font-size: 13px;
     color: white;
 }
 
+.modeContainer {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 .switchModes {
-	margin-left: 120px;
+	/*margin-left: 120px;*/
 	height: 50px;
 	width: 50px;
 	padding: 0;
@@ -451,6 +465,26 @@ p.lead {
     .radio-row {
         gap: 20px;
     }
+	
+	.switchModes {
+		height: 40px;
+		width: 40px;
+		justify-content: center;
+		align-items:center;
+		cursor: pointer;
+	}
+	
+	.switchModes img{
+		height:30px;
+	}
+
+	.switchModes img:hover{
+		height:40px;
+	}
+	
+	.modeContainer {
+		margin-left: auto;
+	}
 }
 
 @media (max-width: 380px) {
@@ -524,5 +558,72 @@ p.lead {
 
     .analysis {
         font-size: 13px;
+    }
+	.title {
+        flex-direction: column;
+    }
+
+    .title h1 {
+        text-align: center;
+    }
+
+    .title p {
+        font-size: 10px;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    #estimatedTimeContainer{
+        padding-top: 15px;
+        justify-content: left;
+    }
+
+    #estimatedTime {
+        font-size: 10px;
+    }
+
+    .lead {
+        padding-top: 10px;
+    }
+	
+	.switchModes {
+		height: 35px;
+		width: 35px;
+		justify-content: center;
+		align-items:center;
+		cursor: pointer;
+	}
+	
+	.switchModes img{
+		height:25px;
+	}
+
+	.switchModes img:hover{
+		height:30px;
+	}
+	
+	.modeContainer {
+		margin-left: auto;
+	}
+}
+
+@media (max-width: 460px) {
+    .title {
+        flex-direction: column;
+    }
+
+    .title h1 {
+        text-align: center;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    #estimatedTimeContainer{
+        padding-top: 15px;
+        justify-content: left;
     }
 }
