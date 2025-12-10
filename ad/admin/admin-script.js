@@ -1,27 +1,30 @@
-const API_URL = 'api.php'; // adjust path if needed
+const API_URL = 'api.php';
 
-// Navigation
 const pages = {
     dashboard: document.getElementById('page-dashboard'),
     analytics: document.getElementById('page-analytics'),
     manage: document.getElementById('page-manage'),
     responses: document.getElementById('page-responses'),
 };
+
 const nav = {
     dashboard: document.getElementById('nav-dashboard'),
     analytics: document.getElementById('nav-analytics'),
     manage: document.getElementById('nav-manage'),
     responses: document.getElementById('nav-responses')
 };
+
 function showPage(key) {
     for (const p in pages) pages[p].style.display = (p === key ? 'block' : 'none');
     document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
     nav[key].classList.add('active');
+
     if (key === 'dashboard') renderDashboard();
     if (key === 'analytics') renderAnalytics();
     if (key === 'manage') renderManage();
     if (key === 'responses') renderResponses();
 }
+
 Object.keys(nav).forEach(k => nav[k].onclick = () => showPage(k));
 
 // Helper function to format seconds into readable time
@@ -40,8 +43,6 @@ function formatTime(seconds) {
         return `${secs} second${secs !== 1 ? 's' : ''}`;
     }
 }
-// Chart instances
-let barChart, lineChart, pieChart, analyticsChart;
 
 // utility fetch wrapper
 async function api(action, method = 'GET', payload = null) {
@@ -79,27 +80,51 @@ async function loadResponses(days = null) {
     return r.responses || [];
 }
 
+// Chart instances
+let barChart, lineChart, pieChart, analyticsChart;
+
 // render dashboard
+let cachedStats = null;
+let cachedResponses = null;
+
 async function renderDashboard() {
+
     const days = document.getElementById('filterTime').value;
     const params = (days && days !== 'all') ? { days } : {};
-    const stats = await api('dashboard_stats', 'GET', params);
 
-    // Update stats
+    // ===============================
+    // CACHE STATS ONLY
+    // ===============================
+    if (!cachedStats || days !== cachedStats._days) {
+        console.log("Fetching dashboard stats...");
+        cachedStats = await api('dashboard_stats', 'GET', params);
+        cachedStats._days = days;
+    } else {
+        console.log("Using cached stats");
+    }
+
+    const stats = cachedStats;
+
+    // ===============================
+    // UPDATE UI
+    // ===============================
+
     document.getElementById('stat-count').innerText = stats.total;
     document.getElementById('stat-avg').innerText = stats.overall_avg.toFixed(2);
+    document.getElementById('stat-time').innerText = stats.average_time.toFixed(2);
     document.getElementById('stat-last').innerText = stats.last ? new Date(stats.last).toLocaleString() : '—';
     document.getElementById('stat-time').innerText = stats.average_time ? formatTime(stats.average_time) : '—';
 
-    // Populate category filter
+    // Category dropdown
     const catSelect = document.getElementById('filterCategory');
-    catSelect.innerHTML = '<option value="all">All Categories</option>' +
+    catSelect.innerHTML =
+        '<option value="all">All Categories</option>' +
         (stats.categories || []).map(c => `<option value="${c.title}">${c.title}</option>`).join('');
 
-    // Prepare initial bar chart (all categories)
-    const allLabels = (stats.categories || []).map(c => c.title);
-    const allVals = (stats.categories || []).map(c => Number(parseFloat(c.avgv).toFixed(2)));
+    const allLabels = stats.categories.map(c => c.title);
+    const allVals = stats.categories.map(c => Number(parseFloat(c.avgv).toFixed(2)));
 
+    // Bar chart
     if (barChart) barChart.destroy();
     barChart = new Chart(document.getElementById('barChart'), {
         type: 'bar',
@@ -107,34 +132,29 @@ async function renderDashboard() {
         options: { scales: { y: { beginAtZero: true, max: 5 } }, plugins: { legend: { display: false } } }
     });
 
-    // Category filter change handler
-    catSelect.onchange = async () => {
+    // Category filter
+    catSelect.onchange = () => {
         const selectedCat = catSelect.value;
+
         if (selectedCat === 'all') {
             barChart.data.labels = allLabels;
             barChart.data.datasets[0].data = allVals;
-            barChart.update();
-            return;
+        } else {
+            const match = stats.categories.find(c => c.title === selectedCat);
+            barChart.data.labels = [selectedCat];
+            barChart.data.datasets[0].data = [match ? Number(match.avgv) : 0];
         }
-
-        // Find average for the selected category
-        let sum = 0, count = 0;
-        (stats.categories || []).forEach(c => {
-            if (c.title === selectedCat) {
-                sum += parseFloat(c.avgv);
-                count++;
-            }
-        });
-        const avg = count ? sum / count : 0;
-
-        barChart.data.labels = [selectedCat];
-        barChart.data.datasets[0].data = [avg];
         barChart.update();
     };
 
     // Trend line chart
-    const trendLabels = (stats.trend || []).map(t => t.d);
-    const trendVals = (stats.trend || []).map(t => Number(parseFloat(t.avgv).toFixed(2)));
+    let trendLabels = stats.trend.map(t => t.d).sort((a, b) => new Date(a) - new Date(b));
+    let trendVals = stats.trend.map(t => Number(parseFloat(t.avgv).toFixed(2)));
+
+    const limit = 7;
+    trendLabels = trendLabels.slice(-limit);
+    trendVals = trendVals.slice(-limit);
+
     if (lineChart) lineChart.destroy();
     lineChart = new Chart(document.getElementById('lineChart'), {
         type: 'line',
@@ -146,36 +166,67 @@ async function renderDashboard() {
     if (pieChart) pieChart.destroy();
     pieChart = new Chart(document.getElementById('pieChart'), {
         type: 'pie',
-        data: { labels: allLabels, datasets: [{ data: allVals, backgroundColor: ['#1f6fb2', '#1f8f7a', '#f59e0b', '#e11d48', '#8b5cf6'] }] },
+        data: {
+            labels: allLabels,
+            datasets: [{
+                data: allVals,
+                backgroundColor: ['#1f6fb2', '#1f8f7a', '#f59e0b', '#e11d48', '#8b5cf6']
+            }]
+        },
         options: { plugins: { legend: { position: 'bottom' } } }
     });
+
+    renderAnalytics();
 }
 
-
-// render analytics
 // render analytics with number of respondents per day
 async function renderAnalytics() {
-    const days = document.getElementById('respFilterTime').value;
-    const responses = await loadResponses(days === 'all' ? null : days);
-    console.log("📊 responses:", responses);
+    if (!cachedResponses) {
+        console.log("Fetching responses from API...");
+        cachedResponses = await loadResponses(null);
+    } else {
+        console.log("Using cached responses");
+    }
 
-    // ===== Overall bar chart =====
+    const responses = cachedResponses;
+    const LIMIT = 7;
+
+    // ========= FAST GROUPING =========
     const map = {};
-    responses.forEach(r => {
+    const catMap = {};
+
+    for (const r of responses) {
         const d = new Date(r.submitted_at).toLocaleDateString('en-CA', { timeZone: 'Asia/Manila' });
+
+        // Overall day summary
         if (!map[d]) map[d] = { sum: 0, count: 0 };
         map[d].sum += Number(r.overall) || 0;
         map[d].count++;
-    });
-    const labels = Object.keys(map).sort((a,b)=> new Date(a) - new Date(b));
-    const avgVals = labels.map(l => map[l].count ? map[l].sum / map[l].count : 0);
+
+        // Category summary
+        if (r.categories) {
+            for (const c of r.categories) {
+                const cat = c.category_name;
+
+                if (!catMap[cat]) catMap[cat] = {};
+                if (!catMap[cat][d]) catMap[cat][d] = { sum: 0, count: 0 };
+
+                catMap[cat][d].sum += Number(c.avg_rating) || 0;
+                catMap[cat][d].count++;
+            }
+        }
+    }
+
+    // ========= BAR CHART =========
+    let labels = Object.keys(map).sort((a, b) => new Date(a) - new Date(b));
+    labels = labels.slice(-LIMIT);
+
+    const avgVals = labels.map(l => map[l].sum / map[l].count);
     const countVals = labels.map(l => map[l].count);
 
-    // Destroy old chart if exists
     if (window.analyticsChart instanceof Chart) window.analyticsChart.destroy();
 
-    const ctxBar = document.getElementById('analyticsChart');
-    window.analyticsChart = new Chart(ctxBar, {
+    window.analyticsChart = new Chart(document.getElementById('analyticsChart'), {
         type: 'bar',
         data: {
             labels,
@@ -187,64 +238,50 @@ async function renderAnalytics() {
         options: {
             responsive: true,
             scales: {
-                y1: { type: 'linear', position: 'left', beginAtZero: true, max: 5, title: { display: true, text: 'Avg Score' } },
-                y2: { type: 'linear', position: 'right', beginAtZero: true, title: { display: true, text: 'Number of Respondents' }, grid: { drawOnChartArea: false } }
-            },
-            plugins: { legend: { position: 'top' } }
+                y1: { type: 'linear', position: 'left', beginAtZero: true, max: 5 },
+                y2: { type: 'linear', position: 'right', beginAtZero: true, grid: { drawOnChartArea: false } }
+            }
         }
     });
 
-    // ===== Category trend line chart =====
-    const catMap = {};
-    responses.forEach(r => {
-        const day = new Date(r.submitted_at).toLocaleDateString('en-CA', { timeZone: 'Asia/Manila' });
-        (r.categories || []).forEach(c => {
-            const cat = c.category_name;
-            if (!catMap[cat]) catMap[cat] = {};
-            if (!catMap[cat][day]) catMap[cat][day] = { sum: 0, count: 0 };
-            catMap[cat][day].sum += Number(c.avg_rating) || 0;
-            catMap[cat][day].count++;
-        });
-    });
+    // ========= CATEGORY TREND =========
+    let allDates = [
+        ...new Set(
+            Object.values(catMap).flatMap(entry => Object.keys(entry))
+        )
+    ].sort((a, b) => new Date(a) - new Date(b));
 
-    const allDates = [...new Set(Object.values(catMap).flatMap(obj => Object.keys(obj)))].sort((a,b)=> new Date(a)-new Date(b));
-    const colors = ['#1f6fb2','#e11d48','#f59e0b','#1f8f7a','#8b5cf6','#9333ea','#ef4444','#14b8a6'];
+    allDates = allDates.slice(-LIMIT);
 
-    const datasets = Object.keys(catMap).map((cat,i)=>({
+    const colors = ['#1f6fb2', '#e11d48', '#f59e0b', '#1f8f7a', '#8b5cf6', '#9333ea', '#ef4444', '#14b8a6'];
+
+    const datasets = Object.keys(catMap).map((cat, i) => ({
         label: cat,
-        data: allDates.map(d => catMap[cat][d] ? catMap[cat][d].sum / catMap[cat][d].count : null),
+        data: allDates.map(d => catMap[cat][d] ? (catMap[cat][d].sum / catMap[cat][d].count) : null),
         borderColor: colors[i % colors.length],
         tension: 0.3,
         fill: false,
         spanGaps: true
     }));
 
-    const ctxLine = document.getElementById('categoryTrendChart');
     if (window.categoryTrendChart instanceof Chart) window.categoryTrendChart.destroy();
 
-    window.categoryTrendChart = new Chart(ctxLine, {
+    window.categoryTrendChart = new Chart(document.getElementById('categoryTrendChart'), {
         type: 'line',
         data: { labels: allDates, datasets },
         options: {
             responsive: true,
-            plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Category Average Trend' }
-            },
-            interaction: { mode: 'nearest', intersect: false },
+            plugins: { title: { display: true, text: 'Category Average Trend' } },
             scales: {
-                x: { title: { display: true, text: 'Date' } },
-                y: { beginAtZero: true, max: 5, title: { display: true, text: 'Average Rating' } }
+                x: { title: { text: 'Date', display: true } },
+                y: { beginAtZero: true, max: 5 }
             }
         }
     });
 }
 
-
 // attach filter change
 document.getElementById('respFilterTime').onchange = renderAnalytics;
-
-
 
 // manage: render categories & questions
 async function renderManage() {
@@ -336,24 +373,71 @@ async function renderManage() {
     };
 }
 
+let cachedResponsesTable = {};
 
-
-// responses table
 async function renderResponses() {
     const days = document.getElementById('respFilterTime').value;
-    const responses = await loadResponses(days === 'all' ? null : days);
-    const tbody = document.getElementById('responsesTableBody');
-    tbody.innerHTML = '';
-    if (!responses.length) {
-        tbody.innerHTML = '<tr><td colspan="3">No responses</td></tr>';
+    const key = days || 'all';
+
+    // Use cached table if available
+    if (cachedResponsesTable[key]) {
+        document.getElementById('responsesTableBody').innerHTML = cachedResponsesTable[key];
+        console.log(" Using cached responses table");
         return;
     }
-    responses.reverse().forEach(r => {
-        const tr = document.createElement('tr');
-        const details = (r.categories || []).map(c => `${c.category_name}: ${Number(c.avg_rating || 0).toFixed(2)}`).join(' | ');
-        tr.innerHTML = `<td>${new Date(r.submitted_at).toLocaleString()}</td><td>${(r.overall || 0).toFixed(2)}</td><td style="font-size:12px;color:#555">${details}</td>`;
-        tbody.appendChild(tr);
-    });
+
+    console.log("Fetching responses for table...");
+
+    const responses = await loadResponses(days === 'all' ? null : days);
+    const tbody = document.getElementById('responsesTableBody');
+
+    // No responses case
+    if (!responses.length) {
+        const html = '<tr><td colspan="3">No responses</td></tr>';
+        tbody.innerHTML = html;
+        cachedResponsesTable[key] = html;
+        return;
+    }
+
+    // Date cache (avoid repeated new Date parsing)
+    const dateCache = Object.create(null);
+
+    // BUILD ONE BIG HTML STRING (FASTEST)
+    let html = "";
+
+    // Faster than reverse(): loop backward
+    for (let i = responses.length - 1; i >= 0; i--) {
+        const r = responses[i];
+
+        // cache date format
+        let dateStr = dateCache[r.submitted_at];
+        if (!dateStr) {
+            dateStr = dateCache[r.submitted_at] =
+                new Date(r.submitted_at).toLocaleString('en-US', { hour12: true });
+        }
+
+        // category details
+        let details = "";
+        if (r.categories && r.categories.length) {
+            const parts = new Array(r.categories.length);
+            for (let j = 0; j < r.categories.length; j++) {
+                const c = r.categories[j];
+                parts[j] = `${c.category_name}: ${Number(c.avg_rating || 0).toFixed(2)}`;
+            }
+            details = parts.join(" | ");
+        }
+
+        html += `
+            <tr>
+                <td>${dateStr}</td>
+                <td>${(r.overall || 0).toFixed(2)}</td>
+                <td style="font-size:12px;color:#555">${details}</td>
+            </tr>
+        `;
+    }
+    tbody.innerHTML = html;
+
+    cachedResponsesTable[key] = html;
 }
 
 /* Helpers */
@@ -417,49 +501,69 @@ document.getElementById('exportReport').onclick = async () => {
     doc.text("Survey Analytics Report", 20, 20);
 
     const days = document.getElementById('filterTime').value;
-    const stats = await api('dashboard_stats', 'GET', (days && days !== 'all') ? { days } : {});
+    const params = (days && days !== 'all') ? { days } : {};
+    const stats = await api('dashboard_stats', 'GET', params);
     const responses = await loadResponses((days && days !== 'all') ? days : null);
 
+    // --- HEADER INFO ---
     doc.setFontSize(12);
-    doc.text(`Total responses: ${stats.total}`, 20, 35);
-    doc.text(`Overall average: ${stats.overall_avg.toFixed(2)}`, 20, 45);
+    let y = 35;
 
-    // Category averages
-    doc.text("Category averages:", 20, 60);
-    let y = 70;
+    doc.text(`Total responses: ${stats.total}`, 20, y);
+    y += 10;
+
+    doc.text(`Overall average score: ${stats.overall_avg.toFixed(2)}`, 20, y);
+    y += 10;
+
+    // Average Time
+    if (stats.average_time) {
+        doc.text(`Overall average time: ${stats.average_time.toFixed(2)} seconds`, 20, y);
+        y += 15;
+    }
+
+    // --- CATEGORY AVERAGES ---
+    doc.text("Category averages:", 20, y);
+    y += 10;
+
     (stats.categories || []).forEach(c => {
         doc.text(`${c.title}: ${Number(c.avgv).toFixed(2)}`, 22, y);
         y += 8;
         if (y > 270) { doc.addPage(); y = 20; }
     });
 
-    // Daily summary (average & respondents per day)
+    // --- DAILY SUMMARY ---
     if (responses.length) {
-        // Group by day
+        y += 10;
+        doc.text("Summary (Avg & Respondents per Day):", 20, y);
+        y += 12;
+
         const map = {};
         responses.forEach(r => {
-            const dayKey = new Date(r.submitted_at).toLocaleDateString(); // only the date
+            const dayKey = new Date(r.submitted_at).toLocaleDateString();
             if (!map[dayKey]) map[dayKey] = { sum: 0, count: 0 };
-            map[dayKey].sum += r.overall || 0;
+            map[dayKey].sum += Number(r.overall) || 0;
             map[dayKey].count++;
         });
 
         const sortedDays = Object.keys(map).sort((a, b) => new Date(a) - new Date(b));
-        doc.text("Summary (Avg & Respondents):", 20, y + 8);
-        y += 18;
 
         sortedDays.forEach(day => {
             const avg = map[day].count ? (map[day].sum / map[day].count).toFixed(2) : 0;
             const line = `${day} — Avg: ${avg} — Respondents: ${map[day].count}`;
             doc.text(line, 22, y);
             y += 8;
+
             if (y > 270) { doc.addPage(); y = 20; }
         });
     }
 
-    doc.text("Generated: " + new Date().toLocaleString(), 20, y + 8);
+    // --- FOOTER ---
+    y += 15;
+    doc.text("Generated: " + new Date().toLocaleString(), 20, y);
+
     doc.save('survey_report.pdf');
 };
+
 
 document.getElementById('respFilterTime').onchange = renderResponses;
 
@@ -470,4 +574,3 @@ document.getElementById('respFilterTime').onchange = renderResponses;
     renderResponses();
     renderAnalytics();
 })();
-

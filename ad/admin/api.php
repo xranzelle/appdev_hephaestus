@@ -57,14 +57,14 @@ if ($action === 'get_survey') {
             $q->execute([$c['id']]);
             $c['questions'] = $q->fetchAll(PDO::FETCH_ASSOC);
         }
-        
+
         // Fetch average answer time
         $avgStmt = $pdo->query("SELECT AVG(answer_time) AS avg_time FROM responses");
         $avgRow = $avgStmt->fetch(PDO::FETCH_ASSOC);
         $average_time = ($avgRow && $avgRow['avg_time'] !== null)
             ? round($avgRow['avg_time'])
             : null;
-        
+
         jsonOut([
             "success" => true,
             "categories" => $cats,
@@ -146,36 +146,97 @@ if ($action === 'delete_question') {
 /* ========== RESPONSES FETCH ========== */
 if ($action === 'get_responses') {
     try {
-        $days = $_GET['days'] ?? null;
-        $cond = $days ? "WHERE submitted_at >= NOW() - INTERVAL $days DAY" : "";
-        $resp = $pdo->query("SELECT * FROM responses $cond ORDER BY submitted_at DESC")->fetchAll(PDO::FETCH_ASSOC);
+        $days = $_GET['days'] ?? 'all';
+        $where = "";
 
-        foreach ($resp as &$r) {
-            $ans = $pdo->prepare("
-                SELECT c.name AS category_name, AVG(a.rating_value) AS avg_rating
-                FROM response_answers a
-                JOIN questions q ON q.id = a.question_id
-                JOIN categories c ON c.id = q.category_id
-                WHERE a.response_id = ? GROUP BY c.id
-            ");
-            $ans->execute([$r['id']]);
-            $r['categories'] = $ans->fetchAll(PDO::FETCH_ASSOC);
+        switch ($days) {
+            case "today":
+                $where = "WHERE DATE(r.submitted_at) = CURDATE()";
+                break;
 
-            $r['overall'] = 0;
-            if (count($r['categories'])) {
-                $sum = 0;
-                foreach ($r['categories'] as $c) {
-                    $sum += $c['avg_rating'];
-                }
-                $r['overall'] = $sum / count($r['categories']);
+            case "yesterday":
+                $where = "WHERE DATE(r.submitted_at) = CURDATE() - INTERVAL 1 DAY";
+                break;
+
+            case "7":
+                $where = "WHERE r.submitted_at >= NOW() - INTERVAL 7 DAY";
+                break;
+
+            case "30":
+                $where = "WHERE r.submitted_at >= NOW() - INTERVAL 30 DAY";
+                break;
+
+            case "all":
+            default:
+                $where = "";
+                break;
+        }
+
+        // ⚡ 1 QUERY ONLY — COMPLETE DATA
+        $stmt = $pdo->query("
+            SELECT 
+                r.id AS response_id,
+                r.submitted_at,
+                c.name AS category_name,
+                AVG(a.rating_value) AS avg_rating
+            FROM responses r
+            LEFT JOIN response_answers a ON a.response_id = r.id
+            LEFT JOIN questions q ON q.id = a.question_id
+            LEFT JOIN categories c ON c.id = q.category_id
+            $where
+            GROUP BY r.id, c.id
+            ORDER BY r.submitted_at DESC
+        ");
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // ⚡ Transform rows to structured format
+        $resp = [];
+        foreach ($rows as $row) {
+            $rid = $row['response_id'];
+
+            if (!isset($resp[$rid])) {
+                $resp[$rid] = [
+                    "id" => $rid,
+                    "submitted_at" => $row['submitted_at'],
+                    "categories" => [],
+                    "overall" => 0
+                ];
+            }
+
+            if ($row['category_name']) {
+                $resp[$rid]["categories"][] = [
+                    "category_name" => $row['category_name'],
+                    "avg_rating" => floatval($row['avg_rating'])
+                ];
             }
         }
 
-        jsonOut(["success" => true, "responses" => $resp]);
+        // ⚡ Compute overall once
+        foreach ($resp as &$r) {
+            $sum = 0;
+            $cnt = 0;
+
+            foreach ($r['categories'] as $c) {
+                $sum += $c['avg_rating'];
+                $cnt++;
+            }
+
+            $r['overall'] = $cnt ? ($sum / $cnt) : 0;
+        }
+
+        // final output
+        jsonOut([
+            "success" => true,
+            "responses" => array_values($resp)
+        ]);
+
     } catch (Exception $e) {
         jsonOut(["success" => false, "error" => $e->getMessage()]);
     }
 }
+
+
 
 /* ========== SUBMIT SURVEY RESPONSE ========== */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
@@ -205,9 +266,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
         $ansStmt = $pdo->prepare("INSERT INTO response_answers (response_id, question_id, rating_value) VALUES (?, ?, ?)");
 
         foreach ($data['categories'] as $cat) {
-            if (!isset($cat['questions'])) continue;
+            if (!isset($cat['questions']))
+                continue;
             foreach ($cat['questions'] as $q) {
-                if (!isset($q['question_id'], $q['rating'])) continue;
+                if (!isset($q['question_id'], $q['rating']))
+                    continue;
                 $ansStmt->execute([$response_id, $q['question_id'], $q['rating']]);
                 $total += floatval($q['rating']);
                 $count++;
@@ -227,28 +290,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'submit_survey') {
 /* ========== DASHBOARD STATS ========== */
 if ($action === 'dashboard_stats') {
     try {
-        $days = $_GET['days'] ?? null;
-        $cond = $days ? "WHERE r.submitted_at >= NOW() - INTERVAL $days DAY" : "";
 
-        $total = $pdo->query("SELECT COUNT(*) FROM responses $cond")->fetchColumn();
+        // --- FIXED TIME FILTER ---
+        $days = $_GET['days'] ?? 'all';
+        $where = "";
+
+        switch ($days) {
+            case "today":
+                $where = "WHERE DATE(r.submitted_at) = CURDATE()";
+                break;
+
+            case "yesterday":
+                $where = "WHERE DATE(r.submitted_at) = CURDATE() - INTERVAL 1 DAY";
+                break;
+
+            case "7":
+                $where = "WHERE r.submitted_at >= NOW() - INTERVAL 7 DAY";
+                break;
+
+            case "30":
+                $where = "WHERE r.submitted_at >= NOW() - INTERVAL 30 DAY";
+                break;
+
+            case "all":
+            default:
+                $where = "";
+                break;
+        }
+
+        // --- TOTAL RESPONSES ---
+        $total = $pdo->query("SELECT COUNT(*) FROM responses r $where")->fetchColumn();
+
+        // --- LAST SUBMISSION DATE ---
         $last = $pdo->query("SELECT MAX(submitted_at) FROM responses")->fetchColumn();
 
-        $avgStmt = $pdo->query("SELECT AVG(answer_time) AS avg_time FROM responses $cond");
+        // --- AVG TIME ---
+        $avgStmt = $pdo->query("
+            SELECT AVG(answer_time) AS avg_time 
+            FROM responses r 
+            $where
+        ");
         $avgRow = $avgStmt->fetch(PDO::FETCH_ASSOC);
         $average_time = ($avgRow && $avgRow['avg_time'] !== null)
             ? round($avgRow['avg_time'])
             : null;
 
+        // --- CATEGORY AVERAGES ---
         $cats = $pdo->query("
             SELECT c.name AS title, AVG(a.rating_value) AS avgv
             FROM response_answers a
             JOIN questions q ON q.id = a.question_id
             JOIN categories c ON c.id = q.category_id
             JOIN responses r ON r.id = a.response_id
-            $cond
+            $where
             GROUP BY c.id
         ")->fetchAll(PDO::FETCH_ASSOC);
 
+        // --- OVERALL AVERAGE ---
         $overall_avg = 0;
         if (count($cats)) {
             $sum = 0;
@@ -258,28 +356,32 @@ if ($action === 'dashboard_stats') {
             $overall_avg = $sum / count($cats);
         }
 
+        // --- TREND DATA ---
         $trend = $pdo->query("
             SELECT DATE(r.submitted_at) AS d, AVG(a.rating_value) AS avgv
             FROM response_answers a
             JOIN responses r ON r.id = a.response_id
-            $cond
+            $where
             GROUP BY DATE(r.submitted_at)
             ORDER BY d ASC
         ")->fetchAll(PDO::FETCH_ASSOC);
 
+        // --- OUTPUT ---
         jsonOut([
             "success" => true,
             "total" => $total,
             "overall_avg" => floatval($overall_avg),
-            "average_time" => $average_time, 
+            "average_time" => $average_time,
             "last" => $last,
             "categories" => $cats,
             "trend" => $trend
         ]);
+
     } catch (Exception $e) {
         jsonOut(["success" => false, "error" => $e->getMessage()]);
     }
 }
+
 
 /* ========== EXPORT CSV ========== */
 if ($action === 'export_csv') {
