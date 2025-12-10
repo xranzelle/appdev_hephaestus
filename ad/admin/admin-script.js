@@ -106,20 +106,61 @@ async function renderDashboard() {
     const stats = cachedStats;
 
     // ===============================
-    // UPDATE UI
+    // CHECK NO DATA
     // ===============================
+    const noData = stats.total === 0 || !stats.categories || stats.categories.length === 0;
 
+    // ALWAYS UPDATE UI kahit walang data
     document.getElementById('stat-count').innerText = stats.total;
-    document.getElementById('stat-avg').innerText = stats.overall_avg.toFixed(2);
-    document.getElementById('stat-time').innerText = stats.average_time.toFixed(2);
+    document.getElementById('stat-avg').innerText = noData ? '0.00' : stats.overall_avg.toFixed(2);
+    document.getElementById('stat-time').innerText = noData ? '0s' : formatTime(stats.average_time);
     document.getElementById('stat-last').innerText = stats.last ? new Date(stats.last).toLocaleString() : '—';
-    document.getElementById('stat-time').innerText = stats.average_time ? formatTime(stats.average_time) : '—';
 
-    // Category dropdown
     const catSelect = document.getElementById('filterCategory');
     catSelect.innerHTML =
         '<option value="all">All Categories</option>' +
         (stats.categories || []).map(c => `<option value="${c.title}">${c.title}</option>`).join('');
+
+    // ===============================
+    // 🚫 IF NO DATA → CLEAR GRAPHS
+    // ===============================
+
+    if (noData) {
+
+        if (barChart) barChart.destroy();
+        if (lineChart) lineChart.destroy();
+        if (pieChart) pieChart.destroy();
+
+        // BAR CHART NO DATA
+        let b = document.getElementById('barChart').getContext('2d');
+        b.clearRect(0, 0, b.canvas.width, b.canvas.height);
+        b.font = '16px Poppins';
+        b.fillStyle = '#999';
+        b.textAlign = 'center';
+        b.fillText('No data available', b.canvas.width / 2, b.canvas.height / 2);
+
+        // LINE CHART NO DATA
+        let l = document.getElementById('lineChart').getContext('2d');
+        l.clearRect(0, 0, l.canvas.width, l.canvas.height);
+        l.font = '16px Poppins';
+        l.fillStyle = '#999';
+        l.textAlign = 'center';
+        l.fillText('No trend data', l.canvas.width / 2, l.canvas.height / 2);
+
+        // PIE CHART NO DATA
+        let p = document.getElementById('pieChart').getContext('2d');
+        p.clearRect(0, 0, p.canvas.width, p.canvas.height);
+        p.font = '16px Poppins';
+        p.fillStyle = '#999';
+        p.textAlign = 'center';
+        p.fillText('No category data', p.canvas.width / 2, p.canvas.height / 2);
+
+        return;
+    }
+
+    // ===============================
+    // IF DATA EXISTS → NORMAL CHARTS
+    // ===============================
 
     const allLabels = stats.categories.map(c => c.title);
     const allVals = stats.categories.map(c => Number(parseFloat(c.avgv).toFixed(2)));
@@ -178,6 +219,7 @@ async function renderDashboard() {
 
     renderAnalytics();
 }
+
 
 // render analytics with number of respondents per day
 async function renderAnalytics() {

@@ -84,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 8px;
             margin-top: 14px;
             cursor: pointer;
+            font-size: 14px;
         }
         .back-btn {
             display:block;
@@ -96,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             text-align:center;
             font-weight:600;
             text-decoration:none;
+            font-size: 14px;
         }
         .error, .success {
             padding:10px;
@@ -133,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 
 <div class="signup-box">
-    <h2>Create Admin Account</h2>
+    <h2>Create an Account</h2>
 
     <?php if ($error): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>

@@ -27,28 +27,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
 
-    /* --------------------------------------
-        1. HARD-CODED LOGIN (admin / admin123)
-    --------------------------------------- */
-    if ($username === "admin" && $password === "admin123") {
+    /* ============================================================
+        HARD-CODED ACCOUNTS (WITH ROLES)
+    ============================================================ */
+    $hardcoded = [
+        "superadmin" => ["password" => "super123", "role" => "superadmin"],
+        "admin"      => ["password" => "admin123", "role" => "admin"],
+        "viewer"     => ["password" => "view123",  "role" => "viewer"]
+    ];
+
+    if (isset($hardcoded[$username]) && $password === $hardcoded[$username]["password"]) {
+
         $_SESSION["admin_logged_in"] = true;
-        $_SESSION["admin_username"] = "admin";
-        header("Location: admin.php");
+        $_SESSION["admin_username"]  = $username;
+        $_SESSION["admin_role"]      = $hardcoded[$username]["role"];
+
+        header("Location: dashboard.php");
         exit;
     }
 
-    /* --------------------------------------
-        2. NORMAL DATABASE LOGIN
-    --------------------------------------- */
+    /* ============================================================
+        DATABASE LOGIN (OPTIONAL)
+    ============================================================ */
     $stmt = $pdo->prepare("SELECT * FROM admin_accounts WHERE username = ?");
     $stmt->execute([$username]);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($admin && password_verify($password, $admin["password_hash"])) {
+
         $_SESSION["admin_logged_in"] = true;
-        $_SESSION["admin_username"] = $admin["username"];
-        $_SESSION["full_name"] = $admin["full_name"];
-        header("Location: admin.php");
+        $_SESSION["admin_username"]  = $admin["username"];
+        $_SESSION["admin_role"]      = "viewer";
+        $_SESSION["full_name"]       = $admin["full_name"];
+
+        header("Location: dashboard.php");
         exit;
     } else {
         $error = "Invalid username or password.";
@@ -87,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 8px;
             margin-top: 14px;
             cursor: pointer;
+            font-size: 14px;
         }
         .signup-btn {
             display:block;
@@ -99,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             text-align:center;
             font-weight:600;
             text-decoration:none;
+            font-size: 14px;
         }
         .error {
             padding:10px;
