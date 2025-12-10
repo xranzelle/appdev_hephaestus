@@ -24,6 +24,22 @@ function showPage(key) {
 }
 Object.keys(nav).forEach(k => nav[k].onclick = () => showPage(k));
 
+// Helper function to format seconds into readable time
+function formatTime(seconds) {
+    if (!seconds || seconds === 0) return "—";
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} min${minutes !== 1 ? 's' : ''}`;
+    } else if (minutes > 0) {
+        return `${minutes} min${minutes !== 1 ? 's' : ''} ${secs} sec${secs !== 1 ? 's' : ''}`;
+    } else {
+        return `${secs} second${secs !== 1 ? 's' : ''}`;
+    }
+}
 // Chart instances
 let barChart, lineChart, pieChart, analyticsChart;
 
@@ -73,6 +89,7 @@ async function renderDashboard() {
     document.getElementById('stat-count').innerText = stats.total;
     document.getElementById('stat-avg').innerText = stats.overall_avg.toFixed(2);
     document.getElementById('stat-last').innerText = stats.last ? new Date(stats.last).toLocaleString() : '—';
+    document.getElementById('stat-time').innerText = stats.average_time ? formatTime(stats.average_time) : '—';
 
     // Populate category filter
     const catSelect = document.getElementById('filterCategory');
