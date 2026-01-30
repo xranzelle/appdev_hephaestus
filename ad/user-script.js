@@ -105,7 +105,7 @@ function renderSurvey(categories) {
         : ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
 
     const colors = ["#e74c3c", "#e67e22", "#9ca3af", "#2ecc71", "#27ae60"];
-    const sizes = ["size-large", "size-medium", "size-small", "size-medium", "size-large"];
+    const sizes = ["size-extra-large", "size-extra-large", "size-extra-large", "size-extra-large", "size-extra-large"];
 
     categories.forEach(cat => {
         form.insertAdjacentHTML("beforeend", `<h3 style="margin-top:20px">${cat.name}</h3>`);
